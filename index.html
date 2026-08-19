@@ -1,0 +1,296 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Akhil Baja | AI/ML & Systems Engineer</title>
+  <!-- Tailwind CSS CDN -->
+  <script src="https://cdn.tailwindcss.com"></script>
+  <!-- Lucide Icons -->
+  <script src="https://unpkg.com/lucide@latest"></script>
+  <script>
+    tailwind.config = {
+      darkMode: 'class',
+      theme: {
+        extend: {
+          colors: {
+            brand: {
+              50: '#f0fdf4',
+              500: '#22c55e',
+              600: '#16a34a',
+              glow: 'rgba(34, 197, 94, 0.15)'
+            }
+          }
+        }
+      }
+    }
+  </script>
+  <style>
+    @import url('https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&family=JetBrains+Mono:wght@400;500&display=swap');
+    body { font-family: 'Inter', sans-serif; }
+    code, .mono { font-family: 'JetBrains Mono', monospace; }
+    .glass-card {
+      background: rgba(17, 24, 39, 0.7);
+      backdrop-filter: blur(12px);
+      border: 1px solid rgba(255, 255, 255, 0.08);
+    }
+    .glass-card:hover {
+      border-color: rgba(34, 197, 94, 0.4);
+    }
+  </style>
+</head>
+<body class="bg-gray-950 text-gray-200 antialiased selection:bg-brand-500 selection:text-black">
+
+  <!-- Navigation -->
+  <nav class="fixed top-0 w-full z-50 glass-card border-b border-gray-800/80 px-6 py-4">
+    <div class="max-w-6xl mx-auto flex items-center justify-between">
+      <a href="#" class="text-xl font-bold tracking-tight text-white flex items-center gap-2">
+        <span class="text-brand-500 mono">&lt;AB /&gt;</span> Akhil Baja
+      </a>
+      <div class="hidden md:flex items-center space-x-8 text-sm font-medium text-gray-400">
+        <a href="#about" class="hover:text-white transition">About</a>
+        <a href="#experience" class="hover:text-white transition">Experience</a>
+        <a href="#projects" class="hover:text-white transition">Projects</a>
+        <a href="#skills" class="hover:text-white transition">Skills</a>
+        <a href="#education" class="hover:text-white transition">Education</a>
+      </div>
+      <div class="flex items-center gap-3">
+        <a href="mailto:akhilbaja.work@gmail.com" class="px-4 py-2 text-xs font-semibold uppercase tracking-wider text-black bg-brand-500 hover:bg-brand-600 rounded-lg transition">Contact Me</a>
+      </div>
+    </div>
+  </nav>
+
+  <!-- Hero Section -->
+  <header id="about" class="pt-36 pb-20 px-6 max-w-6xl mx-auto">
+    <div class="max-w-3xl">
+      <div class="inline-flex items-center gap-2 px-3 py-1 rounded-full text-xs font-mono text-brand-500 bg-brand-500/10 border border-brand-500/20 mb-6">
+        <span class="w-2 h-2 rounded-full bg-brand-500 animate-pulse"></span>
+        AI/ML Engineer & Systems Specialist
+      </div>
+      <h1 class="text-4xl sm:text-6xl font-bold text-white tracking-tight leading-tight mb-6">
+        Engineering high-throughput GenAI, LLM pipelines & distributed ML systems.
+      </h1>
+      <p class="text-lg text-gray-400 leading-relaxed mb-8">
+        3+ years of experience building production-grade developer infrastructure and ML architectures at Qualcomm and Axis Bank. MSc student in Artificial Intelligence Applications & Innovation at Imperial College London.
+      </p>
+      
+      <div class="flex flex-wrap items-center gap-4 text-sm font-medium">
+        <a href="mailto:akhilbaja.work@gmail.com" class="flex items-center gap-2 px-5 py-2.5 rounded-lg bg-gray-900 border border-gray-700 hover:border-brand-500 hover:text-white text-gray-300 transition">
+          <i data-lucide="mail" class="w-4 h-4"></i> akhilbaja.work@gmail.com
+        </a>
+        <a href="https://linkedin.com/in/akhilbaja" target="_blank" class="flex items-center gap-2 px-5 py-2.5 rounded-lg bg-gray-900 border border-gray-700 hover:border-brand-500 hover:text-white text-gray-300 transition">
+          <i data-lucide="linkedin" class="w-4 h-4"></i> LinkedIn
+        </a>
+        <a href="https://github.com/AkhilBaja3005" target="_blank" class="flex items-center gap-2 px-5 py-2.5 rounded-lg bg-gray-900 border border-gray-700 hover:border-brand-500 hover:text-white text-gray-300 transition">
+          <i data-lucide="github" class="w-4 h-4"></i> GitHub
+        </a>
+      </div>
+    </div>
+  </header>
+
+  <!-- Metric Highlights -->
+  <section class="border-y border-gray-800 bg-gray-900/40 py-12 px-6">
+    <div class="max-w-6xl mx-auto grid grid-cols-2 md:grid-cols-4 gap-8">
+      <div>
+        <div class="text-3xl font-bold text-white tracking-tight mono text-brand-500">60% ↓</div>
+        <div class="text-xs text-gray-400 uppercase tracking-wider mt-1">Retrieval Latency Reduction</div>
+      </div>
+      <div>
+        <div class="text-3xl font-bold text-white tracking-tight mono text-brand-500">46% ↑</div>
+        <div class="text-xs text-gray-400 uppercase tracking-wider mt-1">LLM Accuracy Improvement</div>
+      </div>
+      <div>
+        <div class="text-3xl font-bold text-white tracking-tight mono text-brand-500">93% ↓</div>
+        <div class="text-xs text-gray-400 uppercase tracking-wider mt-1">Parser Latency Slashed</div>
+      </div>
+      <div>
+        <div class="text-3xl font-bold text-white tracking-tight mono text-brand-500">1,000+</div>
+        <div class="text-xs text-gray-400 uppercase tracking-wider mt-1">Active Users Served</div>
+      </div>
+    </div>
+  </section>
+
+  <!-- Experience -->
+  <section id="experience" class="py-20 px-6 max-w-6xl mx-auto">
+    <h2 class="text-2xl font-bold text-white tracking-tight mb-10 flex items-center gap-3">
+      <i data-lucide="briefcase" class="w-6 h-6 text-brand-500"></i> Work Experience
+    </h2>
+    <div class="space-y-8">
+      
+      <!-- Qualcomm -->
+      <div class="glass-card rounded-xl p-8 relative overflow-hidden transition">
+        <div class="flex flex-col md:flex-row md:items-center justify-between gap-2 mb-4">
+          <div>
+            <h3 class="text-xl font-bold text-white">Software Engineer (GenAI / Systems)</h3>
+            <div class="text-brand-500 text-sm font-medium">Qualcomm</div>
+          </div>
+          <span class="text-xs font-mono text-gray-400 bg-gray-800 px-3 py-1 rounded-full w-fit">Dec 2024 – Aug 2026</span>
+        </div>
+        <ul class="space-y-3 text-sm text-gray-300 list-disc list-inside mb-6">
+          <li>Engineered a cross-language LLM context engineering pipeline using AST-based dependency extraction across Java, Python, C, and C++, reducing retrieval latency by 60% and improving accuracy by 46% (Qualcomm Certificate of Recognition).</li>
+          <li>Re-architected central data-harvesting pipeline for 1,000+ users, cutting deployment failure rate by 84% via asynchronous RabbitMQ queues and containerized Docker/Rancher microservices.</li>
+          <li>Slashed static analysis parser execution latency by 93% and consolidated 200+ unit tests into a Linux-compatible test harness, cutting maintenance overhead by 60%.</li>
+        </ul>
+        <div class="flex flex-wrap gap-2 pt-2 border-t border-gray-800">
+          <span class="text-xs font-mono px-2.5 py-1 rounded bg-gray-800 text-gray-400">Python</span>
+          <span class="text-xs font-mono px-2.5 py-1 rounded bg-gray-800 text-gray-400">C++</span>
+          <span class="text-xs font-mono px-2.5 py-1 rounded bg-gray-800 text-gray-400">AST Parsing</span>
+          <span class="text-xs font-mono px-2.5 py-1 rounded bg-gray-800 text-gray-400">RabbitMQ</span>
+          <span class="text-xs font-mono px-2.5 py-1 rounded bg-gray-800 text-gray-400">Docker</span>
+          <span class="text-xs font-mono px-2.5 py-1 rounded bg-gray-800 text-gray-400">Rancher</span>
+        </div>
+      </div>
+
+      <!-- Axis Bank -->
+      <div class="glass-card rounded-xl p-8 relative overflow-hidden transition">
+        <div class="flex flex-col md:flex-row md:items-center justify-between gap-2 mb-4">
+          <div>
+            <h3 class="text-xl font-bold text-white">Data Scientist (AI/ML)</h3>
+            <div class="text-brand-500 text-sm font-medium">Axis Bank</div>
+          </div>
+          <span class="text-xs font-mono text-gray-400 bg-gray-800 px-3 py-1 rounded-full w-fit">July 2023 – Dec 2024</span>
+        </div>
+        <ul class="space-y-3 text-sm text-gray-300 list-disc list-inside mb-6">
+          <li>Deployed an enterprise GenAI assistant with Azure OpenAI & Cloudera ML for 1,000+ employees, reducing internal query resolution time by 70%.</li>
+          <li>Engineered an Isolation Forest anomaly detection model for Gold Loans, flagging branch-level risk patterns tied to £30M+ in projected loss exposure and cutting manual review time by 80% (BIU Star Award).</li>
+          <li>Automated Dynamic Risk Rating via XGBoost and Naive Bayes pipelines, cutting manual effort by ~40% and complying with RBI regulatory standards.</li>
+        </ul>
+        <div class="flex flex-wrap gap-2 pt-2 border-t border-gray-800">
+          <span class="text-xs font-mono px-2.5 py-1 rounded bg-gray-800 text-gray-400">Azure OpenAI</span>
+          <span class="text-xs font-mono px-2.5 py-1 rounded bg-gray-800 text-gray-400">PySpark</span>
+          <span class="text-xs font-mono px-2.5 py-1 rounded bg-gray-800 text-gray-400">XGBoost</span>
+          <span class="text-xs font-mono px-2.5 py-1 rounded bg-gray-800 text-gray-400">Isolation Forest</span>
+          <span class="text-xs font-mono px-2.5 py-1 rounded bg-gray-800 text-gray-400">Cloudera ML</span>
+        </div>
+      </div>
+
+    </div>
+  </section>
+
+  <!-- Projects -->
+  <section id="projects" class="py-20 px-6 max-w-6xl mx-auto">
+    <h2 class="text-2xl font-bold text-white tracking-tight mb-10 flex items-center gap-3">
+      <i data-lucide="layers" class="w-6 h-6 text-brand-500"></i> Featured Technical Projects
+    </h2>
+    <div class="grid grid-cols-1 md:grid-cols-3 gap-6">
+
+      <!-- Project 1 -->
+      <div class="glass-card rounded-xl p-6 flex flex-col justify-between transition">
+        <div>
+          <div class="text-xs font-mono text-brand-500 mb-2 uppercase tracking-wide">Deep Learning</div>
+          <h3 class="text-lg font-bold text-white mb-3">Cosmic Ray Segmentation</h3>
+          <p class="text-sm text-gray-400 mb-4 leading-relaxed">
+            Enhanced the deepCR model for cosmic-ray detection in astronomical images using residual connections and U-Net architecture, improving pixel-level precision by 15%.
+          </p>
+        </div>
+        <div class="flex flex-wrap gap-2 pt-4 border-t border-gray-800/80">
+          <span class="text-xs font-mono px-2 py-0.5 rounded bg-gray-800 text-gray-300">U-Net</span>
+          <span class="text-xs font-mono px-2 py-0.5 rounded bg-gray-800 text-gray-300">Residual Nets</span>
+          <span class="text-xs font-mono px-2 py-0.5 rounded bg-gray-800 text-gray-300">PyTorch</span>
+        </div>
+      </div>
+
+      <!-- Project 2 -->
+      <div class="glass-card rounded-xl p-6 flex flex-col justify-between transition">
+        <div>
+          <div class="text-xs font-mono text-brand-500 mb-2 uppercase tracking-wide">Computer Vision</div>
+          <h3 class="text-lg font-bold text-white mb-3">Tuberculosis Detection Pipeline</h3>
+          <p class="text-sm text-gray-400 mb-4 leading-relaxed">
+            Transfer-learning architecture combining U-Net segmentation and DenseNet classification across 5,000+ chest X-rays, achieving +12% classification accuracy over baseline.
+          </p>
+        </div>
+        <div class="flex flex-wrap gap-2 pt-4 border-t border-gray-800/80">
+          <span class="text-xs font-mono px-2 py-0.5 rounded bg-gray-800 text-gray-300">DenseNet</span>
+          <span class="text-xs font-mono px-2 py-0.5 rounded bg-gray-800 text-gray-300">U-Net</span>
+          <span class="text-xs font-mono px-2 py-0.5 rounded bg-gray-800 text-gray-300">Computer Vision</span>
+        </div>
+      </div>
+
+      <!-- Project 3 -->
+      <div class="glass-card rounded-xl p-6 flex flex-col justify-between transition">
+        <div>
+          <div class="text-xs font-mono text-brand-500 mb-2 uppercase tracking-wide">Data Infrastructure</div>
+          <h3 class="text-lg font-bold text-white mb-3">Scientific Publications Database</h3>
+          <p class="text-sm text-gray-400 mb-4 leading-relaxed">
+            Designed and optimized a PostgreSQL schema and targeted indexing strategies for 2M+ research papers, accelerating query response times by 45%.
+          </p>
+        </div>
+        <div class="flex flex-wrap gap-2 pt-4 border-t border-gray-800/80">
+          <span class="text-xs font-mono px-2 py-0.5 rounded bg-gray-800 text-gray-300">PostgreSQL</span>
+          <span class="text-xs font-mono px-2 py-0.5 rounded bg-gray-800 text-gray-300">Query Optimization</span>
+          <span class="text-xs font-mono px-2 py-0.5 rounded bg-gray-800 text-gray-300">Indexing</span>
+        </div>
+      </div>
+
+    </div>
+  </section>
+
+  <!-- Technical Skills -->
+  <section id="skills" class="py-20 px-6 max-w-6xl mx-auto">
+    <h2 class="text-2xl font-bold text-white tracking-tight mb-10 flex items-center gap-3">
+      <i data-lucide="cpu" class="w-6 h-6 text-brand-500"></i> Technical Expertise
+    </h2>
+    <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-6">
+      
+      <div class="glass-card rounded-xl p-6">
+        <h3 class="text-sm font-bold text-white uppercase tracking-wider mb-4 text-brand-500">Languages</h3>
+        <p class="text-sm text-gray-300 leading-relaxed font-mono">Python, SQL, C++, Java</p>
+      </div>
+
+      <div class="glass-card rounded-xl p-6">
+        <h3 class="text-sm font-bold text-white uppercase tracking-wider mb-4 text-brand-500">AI / ML & GenAI</h3>
+        <p class="text-sm text-gray-300 leading-relaxed">Generative AI, LLMs, RAG, Context Engineering, Deep Learning, Anomaly Detection, XGBoost, Naive Bayes, Computer Vision (U-Net, DenseNet)</p>
+      </div>
+
+      <div class="glass-card rounded-xl p-6">
+        <h3 class="text-sm font-bold text-white uppercase tracking-wider mb-4 text-brand-500">Data & Platforms</h3>
+        <p class="text-sm text-gray-300 leading-relaxed">PySpark, Azure OpenAI, Cloudera ML, PostgreSQL, SAS EG</p>
+      </div>
+
+      <div class="glass-card rounded-xl p-6">
+        <h3 class="text-sm font-bold text-white uppercase tracking-wider mb-4 text-brand-500">Infra & Systems</h3>
+        <p class="text-sm text-gray-300 leading-relaxed">Docker, Rancher, RabbitMQ, Jenkins, Git, AST Parsing, Static Analysis, Distributed Systems, CI/CD</p>
+      </div>
+
+    </div>
+  </section>
+
+  <!-- Education -->
+  <section id="education" class="py-20 px-6 max-w-6xl mx-auto">
+    <h2 class="text-2xl font-bold text-white tracking-tight mb-10 flex items-center gap-3">
+      <i data-lucide="graduation-cap" class="w-6 h-6 text-brand-500"></i> Education
+    </h2>
+    <div class="grid grid-cols-1 md:grid-cols-2 gap-6">
+      
+      <div class="glass-card rounded-xl p-6">
+        <div class="flex justify-between items-start mb-2">
+          <h3 class="text-lg font-bold text-white">Imperial College London</h3>
+          <span class="text-xs font-mono text-gray-400">2026 – 2027</span>
+        </div>
+        <div class="text-sm text-brand-500 mb-2 font-medium">MSc in Artificial Intelligence Applications and Innovation</div>
+        <div class="text-xs text-gray-400">London, UK</div>
+      </div>
+
+      <div class="glass-card rounded-xl p-6">
+        <div class="flex justify-between items-start mb-2">
+          <h3 class="text-lg font-bold text-white">IIT Hyderabad</h3>
+          <span class="text-xs font-mono text-gray-400">2019 – 2023</span>
+        </div>
+        <div class="text-sm text-brand-500 mb-2 font-medium">B.Tech in Engineering Science (CPI: 8.04 / 10.0)</div>
+        <div class="text-xs text-gray-400">Internship and Placement Cell Coordinator (Corporate outreach for 100+ firms)</div>
+      </div>
+
+    </div>
+  </section>
+
+  <!-- Footer -->
+  <footer class="border-t border-gray-800 py-10 px-6 text-center text-xs text-gray-500">
+    <p>© 2026 Akhil Baja. Designed for high-performance ML engineering.</p>
+  </footer>
+
+  <script>
+    // Initialize Lucide icons
+    lucide.createIcons();
+  </script>
+</body>
+</html>
