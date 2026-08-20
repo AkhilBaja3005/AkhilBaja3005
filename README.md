@@ -1,22 +1,24 @@
-# Hi, I'm Akhil Baja 👋
+### Akhil Baja
 
-<div align="left">
-  <a href="https://akhilbaja3005.github.io/AkhilBaja3005/">
-    <img src="https://img.shields.io/badge/🌐_Interactive_Portfolio-22c55e?style=for-the-badge&logoColor=white" alt="Portfolio"/>
-  </a>
-  <a href="https://linkedin.com/in/akhilbaja">
-    <img src="https://img.shields.io/badge/LinkedIn-0A66C2?style=for-the-badge&logo=linkedin&logoColor=white" alt="LinkedIn"/>
-  </a>
-  <a href="mailto:akhilbaja.work@gmail.com">
-    <img src="https://img.shields.io/badge/Email-akhilbaja.work@gmail.com-EA4335?style=for-the-badge&logo=gmail&logoColor=white" alt="Email"/>
-  </a>
-</div>
+**AI/ML & Systems Engineer** · London, UK  
+MSc Artificial Intelligence Applications & Innovation at **Imperial College London**  
+Ex-**Qualcomm** (Software Engineer — GenAI & Systems) · Ex-**Axis Bank** (Data Scientist — AI/ML)
 
-<br/>
+```
+Building high-throughput GenAI pipelines, enterprise hybrid RAG engines, and distributed ML infrastructure.
+```
 
-### 🚀 AI/ML & Systems Engineer
-- 🎓 **MSc in AI Applications & Innovation** — **Imperial College London** (2026–2027)
-- 💼 Former **Software Engineer (GenAI / Systems)** at **Qualcomm** & **Data Scientist (AI/ML)** at **Axis Bank**
-- 🛠️ Building high-throughput GenAI pipelines, enterprise hybrid RAG engines, and distributed ML systems.
+[Interactive Portfolio](https://akhilbaja3005.github.io/AkhilBaja3005/) &nbsp;•&nbsp; [LinkedIn](https://linkedin.com/in/akhilbaja) &nbsp;•&nbsp; [Email](mailto:akhilbaja.work@gmail.com)
 
-👉 **Check out my live CLI terminal, engineering metrics, and open-source systems at [akhilbaja3005.github.io/AkhilBaja3005](https://akhilbaja3005.github.io/AkhilBaja3005/)**
+---
+
+#### Active Projects & Systems
+- **[Autonomous Academic Lecture Copilot](https://github.com/AkhilBaja3005/notes-taker)** — Local-first AI assistant for STEM coursework featuring audio/video transcription, slide OCR, and contextual Q&A.
+- **[Large-Scale Hybrid RAG Engine](https://github.com/AkhilBaja3005/custom-rag)** — Hybrid dense/sparse search platform with vision-native page parsing and community-graph clustering.
+- **[AI Job Finder Agent](https://github.com/AkhilBaja3005/job-finder)** — Autonomous agent discovering opportunities and computing semantic fit scores against candidate resumes.
+- **[US Visa Slot Checker Suite](https://github.com/AkhilBaja3005/us-visa-slot-checker)** — Real-time automated monitoring and instant alerting engine for appointment availability.
+- **[Modern Expense Management](https://github.com/AkhilBaja3005/expense-tracker)** — Fast, responsive personal finance dashboard built with React, Vite, and Tailwind CSS.
+
+---
+
+<sub>Explore benchmarks, quantitative impact, and interactive live terminal diagnostics on **[akhilbaja3005.github.io/AkhilBaja3005](https://akhilbaja3005.github.io/AkhilBaja3005/)**.</sub>
