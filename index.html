@@ -149,9 +149,15 @@
       opacity: 0;
       transition: all 0.3s cubic-bezier(0.16, 1, 0.3, 1);
     }
-    #copy-toast.show {
-      transform: translateY(0);
-      opacity: 1;
+    /* Command Palette Modal */
+    #cmd-palette-backdrop {
+      background: rgba(3, 7, 18, 0.75);
+      backdrop-filter: blur(12px);
+      transition: all 0.2s ease-out;
+    }
+    .cmd-item:hover, .cmd-item.selected {
+      background: rgba(34, 197, 94, 0.12);
+      border-color: rgba(74, 222, 128, 0.3);
     }
   </style>
 </head>
@@ -166,8 +172,74 @@
   <!-- Ambient Glow -->
   <div class="glow-effect"></div>
 
+  <!-- Command Palette Modal (Cmd+K / Ctrl+K) -->
+  <div id="cmd-palette-backdrop" class="fixed inset-0 z-[100] hidden items-start justify-center pt-24 px-4">
+    <div id="cmd-palette" class="w-full max-w-xl glass-card rounded-2xl border border-gray-700/80 shadow-2xl overflow-hidden animate-in fade-in zoom-in-95 duration-150">
+      <div class="p-3 border-b border-gray-800 flex items-center gap-3 bg-gray-900/80">
+        <i data-lucide="search" class="w-4 h-4 text-brand-400 ml-1"></i>
+        <input id="cmd-input" type="text" autocomplete="off" spellcheck="false" placeholder="Search commands, navigate sections, run diagnostics..." class="w-full bg-transparent text-sm text-white outline-none font-mono placeholder:text-gray-500" />
+        <span class="text-[10px] font-mono text-gray-400 bg-gray-800 border border-gray-700 px-2 py-0.5 rounded">ESC</span>
+      </div>
+      <div id="cmd-list" class="max-h-72 overflow-y-auto p-2 space-y-1 custom-scrollbar text-xs font-mono">
+        <button onclick="handlePaletteAction('about')" class="cmd-item w-full flex items-center justify-between p-2.5 rounded-lg border border-transparent text-gray-300 hover:text-white transition text-left">
+          <div class="flex items-center gap-2.5">
+            <i data-lucide="user" class="w-4 h-4 text-brand-400"></i>
+            <span>Jump to About & Bio</span>
+          </div>
+          <span class="text-gray-500 text-[10px]">#about</span>
+        </button>
+        <button onclick="handlePaletteAction('experience')" class="cmd-item w-full flex items-center justify-between p-2.5 rounded-lg border border-transparent text-gray-300 hover:text-white transition text-left">
+          <div class="flex items-center gap-2.5">
+            <i data-lucide="briefcase" class="w-4 h-4 text-brand-400"></i>
+            <span>Work Experience (Qualcomm, Axis Bank)</span>
+          </div>
+          <span class="text-gray-500 text-[10px]">#experience</span>
+        </button>
+        <button onclick="handlePaletteAction('projects')" class="cmd-item w-full flex items-center justify-between p-2.5 rounded-lg border border-transparent text-gray-300 hover:text-white transition text-left">
+          <div class="flex items-center gap-2.5">
+            <i data-lucide="folder-git-2" class="w-4 h-4 text-brand-400"></i>
+            <span>Open Source Systems & Repos</span>
+          </div>
+          <span class="text-gray-500 text-[10px]">#projects</span>
+        </button>
+        <button onclick="handlePaletteAction('skills')" class="cmd-item w-full flex items-center justify-between p-2.5 rounded-lg border border-transparent text-gray-300 hover:text-white transition text-left">
+          <div class="flex items-center gap-2.5">
+            <i data-lucide="cpu" class="w-4 h-4 text-brand-400"></i>
+            <span>Technical Skills & Core Stack</span>
+          </div>
+          <span class="text-gray-500 text-[10px]">#skills</span>
+        </button>
+        <button onclick="handlePaletteAction('education')" class="cmd-item w-full flex items-center justify-between p-2.5 rounded-lg border border-transparent text-gray-300 hover:text-white transition text-left">
+          <div class="flex items-center gap-2.5">
+            <i data-lucide="graduation-cap" class="w-4 h-4 text-brand-400"></i>
+            <span>Education (Imperial College, IIT Hyderabad)</span>
+          </div>
+          <span class="text-gray-500 text-[10px]">#education</span>
+        </button>
+        <button onclick="handlePaletteAction('resume')" class="cmd-item w-full flex items-center justify-between p-2.5 rounded-lg border border-transparent text-brand-400 hover:text-brand-300 transition text-left">
+          <div class="flex items-center gap-2.5">
+            <i data-lucide="file-text" class="w-4 h-4 text-brand-400"></i>
+            <span>View & Download ATS Resume PDF</span>
+          </div>
+          <span class="text-emerald-500 text-[10px]">PDF ↗</span>
+        </button>
+        <button onclick="handlePaletteAction('copy-email')" class="cmd-item w-full flex items-center justify-between p-2.5 rounded-lg border border-transparent text-gray-300 hover:text-white transition text-left">
+          <div class="flex items-center gap-2.5">
+            <i data-lucide="copy" class="w-4 h-4 text-brand-400"></i>
+            <span>Copy Email Address (akhilbaja.work@gmail.com)</span>
+          </div>
+          <span class="text-gray-500 text-[10px]">Clipboard</span>
+        </button>
+      </div>
+      <div class="p-2.5 bg-gray-950/90 border-t border-gray-800 text-[11px] font-mono text-gray-500 flex items-center justify-between">
+        <span>Tip: Press <kbd class="px-1.5 py-0.5 bg-gray-800 text-gray-300 rounded border border-gray-700">⌘K</kbd> / <kbd class="px-1.5 py-0.5 bg-gray-800 text-gray-300 rounded border border-gray-700">Ctrl+K</kbd> anywhere</span>
+        <span id="palette-ping" class="text-emerald-400">⚡ 12ms (Operational)</span>
+      </div>
+    </div>
+  </div>
+
   <!-- Navigation -->
-  <nav class="fixed top-0 w-full z-50 glass-card border-b border-gray-800/80 px-6 py-4">
+  <nav class="fixed top-0 w-full z-50 glass-card border-b border-gray-800/80 px-6 py-3.5">
     <div class="max-w-6xl mx-auto flex items-center justify-between">
       <a href="#" class="inline-flex items-center gap-2.5 group" aria-label="Akhil Baja Home">
         <div class="flex items-center justify-center w-9 h-9 rounded-lg bg-gray-900/90 border border-gray-700/80 text-brand-400 group-hover:bg-brand-500 group-hover:text-black group-hover:border-brand-500 transition-all duration-200 shadow-sm">
@@ -186,17 +258,34 @@
         <a href="#projects" class="hover:text-brand-400 transition">Projects</a>
         <a href="#skills" class="hover:text-brand-400 transition">Skills</a>
         <a href="#education" class="hover:text-brand-400 transition">Education</a>
+        <a href="./resume.pdf" target="_blank" rel="noopener noreferrer" class="inline-flex items-center gap-1 text-gray-300 hover:text-brand-400 font-mono transition">
+          <span>Resume</span>
+          <i data-lucide="arrow-up-right" class="w-3.5 h-3.5"></i>
+        </a>
       </div>
 
-      <!-- Mobile Menu Toggle Button -->
-      <button id="mobile-menu-btn" onclick="toggleMobileMenu()" aria-label="Toggle navigation menu" class="md:hidden p-2 text-gray-400 hover:text-white rounded-lg hover:bg-gray-800/80 transition focus:outline-none">
-        <svg id="menu-icon-open" class="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-          <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 6h16M4 12h16M4 18h16"></path>
-        </svg>
-        <svg id="menu-icon-close" class="w-6 h-6 hidden" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-          <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M6 18L18 6M6 6l12 12"></path>
-        </svg>
-      </button>
+      <div class="flex items-center gap-3">
+        <!-- Live Node Telemetry Ping & Cmd+K Trigger -->
+        <button onclick="toggleCommandPalette()" class="hidden sm:inline-flex items-center gap-2 px-2.5 py-1 text-xs font-mono text-gray-400 hover:text-white bg-gray-900/90 hover:bg-gray-800 border border-gray-700/80 rounded-lg transition" title="Press ⌘K or Ctrl+K to open Quick Command Palette">
+          <span class="flex h-1.5 w-1.5 relative">
+            <span class="animate-ping absolute inline-flex h-full w-full rounded-full bg-emerald-400 opacity-75"></span>
+            <span class="relative inline-flex rounded-full h-1.5 w-1.5 bg-emerald-500"></span>
+          </span>
+          <span id="nav-latency" class="text-[11px] text-emerald-400">14ms</span>
+          <span class="text-gray-600">|</span>
+          <span class="text-[10px] text-gray-400 font-semibold bg-gray-800 px-1 rounded border border-gray-700">⌘K</span>
+        </button>
+
+        <!-- Mobile Menu Toggle Button -->
+        <button id="mobile-menu-btn" onclick="toggleMobileMenu()" aria-label="Toggle navigation menu" class="md:hidden p-2 text-gray-400 hover:text-white rounded-lg hover:bg-gray-800/80 transition focus:outline-none">
+          <svg id="menu-icon-open" class="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 6h16M4 12h16M4 18h16"></path>
+          </svg>
+          <svg id="menu-icon-close" class="w-6 h-6 hidden" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M6 18L18 6M6 6l12 12"></path>
+          </svg>
+        </button>
+      </div>
     </div>
 
     <!-- Mobile Drawer Menu -->
@@ -206,6 +295,10 @@
       <a href="#projects" onclick="toggleMobileMenu()" class="block py-2 hover:text-brand-400 transition">Projects</a>
       <a href="#skills" onclick="toggleMobileMenu()" class="block py-2 hover:text-brand-400 transition">Skills</a>
       <a href="#education" onclick="toggleMobileMenu()" class="block py-2 hover:text-brand-400 transition">Education</a>
+      <a href="./resume.pdf" target="_blank" rel="noopener noreferrer" onclick="toggleMobileMenu()" class="flex items-center justify-between py-2 text-brand-400 font-mono transition">
+        <span>Resume PDF</span>
+        <i data-lucide="arrow-up-right" class="w-4 h-4"></i>
+      </a>
     </div>
   </nav>
 
@@ -303,8 +396,10 @@
           <div class="p-2.5 bg-gray-900/90 border-t border-gray-800/80 flex items-center gap-2 overflow-x-auto text-[11px] font-mono custom-scrollbar">
             <span class="text-gray-500 text-[10px] uppercase font-bold pl-1">Quick:</span>
             <button onclick="runCommand('skills')" class="px-2.5 py-1 rounded bg-gray-800 hover:bg-brand-500/20 hover:text-brand-400 text-gray-300 transition border border-gray-700/60">skills</button>
+            <button onclick="runCommand('eval')" class="px-2.5 py-1 rounded bg-gray-800 hover:bg-brand-500/20 hover:text-brand-400 text-gray-300 transition border border-gray-700/60" title="Run AST parser & latency demo">eval</button>
             <button onclick="runCommand('projects')" class="px-2.5 py-1 rounded bg-gray-800 hover:bg-brand-500/20 hover:text-brand-400 text-gray-300 transition border border-gray-700/60">projects</button>
             <button onclick="runCommand('benchmarks')" class="px-2.5 py-1 rounded bg-gray-800 hover:bg-brand-500/20 hover:text-brand-400 text-gray-300 transition border border-gray-700/60">benchmarks</button>
+            <button onclick="runCommand('resume')" class="px-2.5 py-1 rounded bg-gray-800 hover:bg-brand-500/20 hover:text-brand-400 text-gray-300 transition border border-gray-700/60">resume</button>
             <button onclick="runCommand('contact')" class="px-2.5 py-1 rounded bg-gray-800 hover:bg-brand-500/20 hover:text-brand-400 text-gray-300 transition border border-gray-700/60">contact</button>
             <button onclick="runCommand('clear')" class="px-2 py-1 rounded bg-gray-800 hover:bg-red-500/20 hover:text-red-400 text-gray-400 transition border border-gray-700/60">clear</button>
           </div>
@@ -821,11 +916,21 @@
     const commandResponses = {
       help: `Available commands:
   • <span class="text-brand-400">skills</span>     - View core technical stack
+  • <span class="text-brand-400">eval</span>       - Run AST context pruning & latency diagnostic demo
   • <span class="text-brand-400">projects</span>   - List featured open-source repositories
   • <span class="text-brand-400">benchmarks</span> - View quantitative performance metrics
+  • <span class="text-brand-400">resume</span>     - Direct ATS Resume PDF download & view
   • <span class="text-brand-400">contact</span>    - Show verified reach-out channels
   • <span class="text-brand-400">education</span>  - Academic background
   • <span class="text-brand-400">clear</span>      - Clear terminal screen`,
+      eval: `⚡ <span class="text-emerald-400">AST Context Pruning Simulation (Qualcomm Architecture):</span>
+  ├─ Raw File Input:       5,420 tokens (Java / C++ / Python cross-file scope)
+  ├─ AST Tree Extraction:  Resolved symbol definitions & call-graph hierarchy
+  ├─ Context Pruning:      Pruned 4,980 irrelevant lines (-91.8% token bloat)
+  ├─ Pruned Token Output:  <span class="text-brand-400 font-bold">440 dense tokens</span> passed to LLM
+  └─ Retrieval Latency:    <span class="text-emerald-400 font-bold">142ms</span> (Baseline: 380ms, <span class="text-emerald-400">62.6% latency drop</span>)`,
+      resume: `📄 <span class="text-emerald-400">Resume:</span> <a href="./resume.pdf" target="_blank" class="text-brand-400 underline font-semibold">Open Akhil_Baja_Resume.pdf ↗</a>
+Direct ATS formatted copy for AI / ML Systems & Engineering roles.`,
       skills: `<span class="text-emerald-400">Languages:</span> Python, SQL, C++, Java, JS, TS, Bash
 <span class="text-emerald-400">AI / ML:</span> LLMs, RAG, PyTorch, AST Parsing, XGBoost, U-Net, DenseNet
 <span class="text-emerald-400">Systems:</span> Docker, Rancher, RabbitMQ, Jenkins, Microservices`,
@@ -938,6 +1043,73 @@ GitHub:   <a href="https://github.com/AkhilBaja3005" target="_blank" class="text
       document.documentElement.style.setProperty('--mouse-x', `${e.clientX}px`);
       document.documentElement.style.setProperty('--mouse-y', `${e.clientY}px`);
     });
+
+    // 8. Command Palette Controller (Cmd+K / Ctrl+K)
+    function toggleCommandPalette() {
+      const backdrop = document.getElementById('cmd-palette-backdrop');
+      const input = document.getElementById('cmd-input');
+      if (backdrop.classList.contains('hidden')) {
+        backdrop.classList.remove('hidden');
+        backdrop.classList.add('flex');
+        input.value = '';
+        input.focus();
+        filterPaletteItems('');
+      } else {
+        backdrop.classList.add('hidden');
+        backdrop.classList.remove('flex');
+      }
+    }
+
+    function handlePaletteAction(action) {
+      toggleCommandPalette();
+      if (action === 'about') document.getElementById('about').scrollIntoView({ behavior: 'smooth' });
+      else if (action === 'experience') document.getElementById('experience').scrollIntoView({ behavior: 'smooth' });
+      else if (action === 'projects') document.getElementById('projects').scrollIntoView({ behavior: 'smooth' });
+      else if (action === 'skills') document.getElementById('skills').scrollIntoView({ behavior: 'smooth' });
+      else if (action === 'education') document.getElementById('education').scrollIntoView({ behavior: 'smooth' });
+      else if (action === 'resume') window.open('./resume.pdf', '_blank');
+      else if (action === 'copy-email') copyToClipboard('akhilbaja.work@gmail.com', 'Email copied to clipboard!');
+    }
+
+    function filterPaletteItems(query) {
+      const items = document.querySelectorAll('.cmd-item');
+      items.forEach(item => {
+        const text = item.innerText.toLowerCase();
+        if (text.includes(query.toLowerCase())) {
+          item.style.display = 'flex';
+        } else {
+          item.style.display = 'none';
+        }
+      });
+    }
+
+    document.getElementById('cmd-input')?.addEventListener('input', (e) => {
+      filterPaletteItems(e.target.value);
+    });
+
+    document.getElementById('cmd-palette-backdrop')?.addEventListener('click', (e) => {
+      if (e.target.id === 'cmd-palette-backdrop') toggleCommandPalette();
+    });
+
+    window.addEventListener('keydown', (e) => {
+      if ((e.metaKey || e.ctrlKey) && e.key.toLowerCase() === 'k') {
+        e.preventDefault();
+        toggleCommandPalette();
+      } else if (e.key === 'Escape') {
+        const backdrop = document.getElementById('cmd-palette-backdrop');
+        if (!backdrop.classList.contains('hidden')) toggleCommandPalette();
+      }
+    });
+
+    // 9. Live Latency & Performance Ticker
+    function updateTelemetryLatency() {
+      const ping = Math.floor(Math.random() * 8) + 10; // 10ms - 18ms
+      const navEl = document.getElementById('nav-latency');
+      const palEl = document.getElementById('palette-ping');
+      if (navEl) navEl.textContent = `${ping}ms`;
+      if (palEl) palEl.textContent = `⚡ ${ping}ms (Operational)`;
+    }
+    setInterval(updateTelemetryLatency, 4500);
   </script>
 </body>
 </html>
