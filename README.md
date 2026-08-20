@@ -39,7 +39,7 @@
 | :--- | :--- | :--- | :--- |
 | **[notes-taker](https://github.com/AkhilBaja3005/notes-taker)** | Autonomous Lecture Copilot | `Python` `Docker` `PyTorch` | Audio/video transcription, slide OCR extraction, and contextual QA. |
 | **[custom-rag](https://github.com/AkhilBaja3005/custom-rag)** | Enterprise Hybrid RAG Platform | `Python` `Vector DB` `Graph RAG` | Hybrid dense/sparse search with community-graph clustering for 10k–100k+ pages. |
-| **[job-finder](https://github.com/AkhilBaja3005/job-finder)** | Autonomous Opportunity Agent | `Python` `FastAPI` `Docker` | Resume ingestion, automated scraping, and semantic fit scoring against dynamic JDs. |
+| **[job-finder](https://github.com/AkhilBaja3005/job-finder)** | AI Job Search & ATS Resume Tailor | `FastAPI` `React 19` `LaTeX` `Chrome Ext` | Dual-engine ATS scoring, automated 1-page LaTeX/Tectonic tailoring, and in-browser job extractor. |
 | **[us-visa-slot-checker](https://github.com/AkhilBaja3005/us-visa-slot-checker)** | Real-Time Monitoring Suite | `JavaScript` `Node.js` | Anti-detect browser automation with multi-channel asynchronous alerting. |
 | **[expense-tracker](https://github.com/AkhilBaja3005/expense-tracker)** | Reactive Financial Dashboard | `React` `Vite` `Tailwind CSS` | Client-side state persistence with real-time categorical expenditure analytics. |
 
