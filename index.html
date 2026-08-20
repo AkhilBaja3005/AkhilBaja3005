@@ -1,13 +1,20 @@
 <!DOCTYPE html>
-<html lang="en">
+<html lang="en" class="scroll-smooth dark">
 <head>
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
   <title>Akhil Baja | AI/ML & Systems Engineer</title>
+  
+  <!-- Favicon: Code Slash Icon < / > -->
+  <link rel="icon" type="image/svg+xml" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 24' fill='none' stroke='%2322c55e' stroke-width='2.2' stroke-linecap='round' stroke-linejoin='round'%3E%3Cpolyline points='16 18 22 12 16 6'/%3E%3Cpolyline points='8 6 2 12 8 18'/%3E%3Cline x1='14' y1='4' x2='10' y2='20' stroke='%234ade80' stroke-width='2.2'/%3E%3C/svg%3E" />
+  <meta name="theme-color" content="#030712" />
+  <meta name="description" content="Portfolio of Akhil Baja - AI/ML & Systems Engineer specializing in GenAI, LLM pipelines, and distributed ML infrastructure." />
+  
   <!-- Tailwind CSS CDN -->
   <script src="https://cdn.tailwindcss.com"></script>
   <!-- Lucide Icons -->
   <script src="https://unpkg.com/lucide@latest"></script>
+  
   <script>
     tailwind.config = {
       darkMode: 'class',
@@ -16,247 +23,684 @@
           colors: {
             brand: {
               50: '#f0fdf4',
+              300: '#86efac',
+              400: '#4ade80',
               500: '#22c55e',
               600: '#16a34a',
               glow: 'rgba(34, 197, 94, 0.15)'
+            }
+          },
+          fontFamily: {
+            sans: ['Inter', 'sans-serif'],
+            mono: ['JetBrains Mono', 'monospace'],
+          },
+          animation: {
+            'pulse-slow': 'pulse 3s cubic-bezier(0.4, 0, 0.6, 1) infinite',
+            'radar': 'radar 4s linear infinite',
+          },
+          keyframes: {
+            radar: {
+              '0%': { transform: 'rotate(0deg)' },
+              '100%': { transform: 'rotate(360deg)' },
             }
           }
         }
       }
     }
   </script>
+  
   <style>
-    @import url('https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&family=JetBrains+Mono:wght@400;500&display=swap');
-    body { font-family: 'Inter', sans-serif; }
-    code, .mono { font-family: 'JetBrains Mono', monospace; }
-    .glass-card {
-      background: rgba(17, 24, 39, 0.7);
-      backdrop-filter: blur(12px);
-      border: 1px solid rgba(255, 255, 255, 0.08);
+    @import url('https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800&family=JetBrains+Mono:ital,wght@0,400;0,500;0,600;0,700;1,400&display=swap');
+    
+    :root {
+      color-scheme: dark;
     }
+
+    body {
+      font-family: 'Inter', sans-serif;
+      background-color: #030712;
+      overflow-x: hidden;
+    }
+    
+    code, .mono {
+      font-family: 'JetBrains Mono', monospace;
+    }
+    
+    /* Background subtle grid pattern */
+    .bg-grid {
+      background-size: 44px 44px;
+      background-image: 
+        linear-gradient(to right, rgba(255, 255, 255, 0.025) 1px, transparent 1px),
+        linear-gradient(to bottom, rgba(255, 255, 255, 0.025) 1px, transparent 1px);
+    }
+    
+    .glass-card {
+      background: rgba(15, 23, 42, 0.65);
+      backdrop-filter: blur(16px);
+      -webkit-backdrop-filter: blur(16px);
+      border: 1px solid rgba(255, 255, 255, 0.08);
+      transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+    }
+    
     .glass-card:hover {
       border-color: rgba(34, 197, 94, 0.4);
+      transform: translateY(-2px);
+      box-shadow: 0 16px 36px -12px rgba(34, 197, 94, 0.14);
+    }
+
+    .terminal-header {
+      background: rgba(30, 41, 59, 0.8);
+      border-bottom: 1px solid rgba(255, 255, 255, 0.08);
+    }
+
+    .custom-scrollbar::-webkit-scrollbar {
+      width: 5px;
+      height: 5px;
+    }
+    .custom-scrollbar::-webkit-scrollbar-track {
+      background: rgba(15, 23, 42, 0.5);
+    }
+    .custom-scrollbar::-webkit-scrollbar-thumb {
+      background: rgba(74, 222, 128, 0.25);
+      border-radius: 4px;
+    }
+    .custom-scrollbar::-webkit-scrollbar-thumb:hover {
+      background: rgba(74, 222, 128, 0.5);
+    }
+
+    /* Ambient Glow Blobs */
+    .glow-effect {
+      position: absolute;
+      top: -150px;
+      left: 50%;
+      transform: translateX(-50%);
+      width: 750px;
+      height: 480px;
+      background: radial-gradient(circle, rgba(34, 197, 94, 0.14) 0%, rgba(34, 197, 94, 0.0) 70%);
+      pointer-events: none;
+      z-index: 0;
+    }
+
+    /* Brittany Chiang Style Interactive Mouse Spotlight */
+    .mouse-spotlight {
+      position: fixed;
+      inset: 0;
+      pointer-events: none;
+      z-index: 1;
+      background: radial-gradient(600px circle at var(--mouse-x, 50%) var(--mouse-y, 50%), rgba(34, 197, 94, 0.06), transparent 80%);
+      transition: background 0.15s ease-out;
+    }
+
+    /* Scroll margin for fixed header anchor jumps */
+    section, header {
+      scroll-margin-top: 90px;
+    }
+
+    /* Tab transitions */
+    .filter-btn.active {
+      background: rgba(34, 197, 94, 0.15);
+      border-color: rgba(74, 222, 128, 0.5);
+      color: #4ade80;
+    }
+
+    /* Copy toast */
+    #copy-toast {
+      transform: translateY(100px);
+      opacity: 0;
+      transition: all 0.3s cubic-bezier(0.16, 1, 0.3, 1);
+    }
+    #copy-toast.show {
+      transform: translateY(0);
+      opacity: 1;
     }
   </style>
 </head>
-<body class="bg-gray-950 text-gray-200 antialiased selection:bg-brand-500 selection:text-black">
+<body class="bg-gray-950 text-gray-200 antialiased selection:bg-brand-500 selection:text-black min-h-screen relative bg-grid">
+
+  <!-- Interactive Neural Canvas -->
+  <canvas id="neural-canvas" class="fixed inset-0 pointer-events-none z-0 opacity-40"></canvas>
+
+  <!-- Interactive Mouse Spotlight -->
+  <div id="mouse-spotlight" class="mouse-spotlight"></div>
+
+  <!-- Ambient Glow -->
+  <div class="glow-effect"></div>
 
   <!-- Navigation -->
   <nav class="fixed top-0 w-full z-50 glass-card border-b border-gray-800/80 px-6 py-4">
     <div class="max-w-6xl mx-auto flex items-center justify-between">
-      <a href="#" class="text-xl font-bold tracking-tight text-white flex items-center gap-2">
-        <span class="text-brand-500 mono">&lt;AB /&gt;</span> Akhil Baja
+      <a href="#" class="inline-flex items-center gap-2.5 group" aria-label="Akhil Baja Home">
+        <div class="flex items-center justify-center w-9 h-9 rounded-lg bg-gray-900/90 border border-gray-700/80 text-brand-400 group-hover:bg-brand-500 group-hover:text-black group-hover:border-brand-500 transition-all duration-200 shadow-sm">
+          <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+            <polyline points="16 18 22 12 16 6"></polyline>
+            <polyline points="8 6 2 12 8 18"></polyline>
+            <line x1="14" y1="4" x2="10" y2="20"></line>
+          </svg>
+        </div>
+        <span class="font-bold text-lg text-white tracking-tight group-hover:text-brand-400 transition">Akhil Baja</span>
       </a>
+      
       <div class="hidden md:flex items-center space-x-8 text-sm font-medium text-gray-400">
-        <a href="#about" class="hover:text-white transition">About</a>
-        <a href="#experience" class="hover:text-white transition">Experience</a>
-        <a href="#projects" class="hover:text-white transition">Projects</a>
-        <a href="#skills" class="hover:text-white transition">Skills</a>
-        <a href="#education" class="hover:text-white transition">Education</a>
+        <a href="#about" class="hover:text-brand-400 transition">About</a>
+        <a href="#experience" class="hover:text-brand-400 transition">Experience</a>
+        <a href="#projects" class="hover:text-brand-400 transition">Projects</a>
+        <a href="#skills" class="hover:text-brand-400 transition">Skills</a>
+        <a href="#education" class="hover:text-brand-400 transition">Education</a>
       </div>
-      <div class="flex items-center gap-3">
-        <a href="mailto:akhilbaja.work@gmail.com" class="px-4 py-2 text-xs font-semibold uppercase tracking-wider text-black bg-brand-500 hover:bg-brand-600 rounded-lg transition">Contact Me</a>
-      </div>
+
+      <!-- Mobile Menu Toggle Button -->
+      <button id="mobile-menu-btn" onclick="toggleMobileMenu()" aria-label="Toggle navigation menu" class="md:hidden p-2 text-gray-400 hover:text-white rounded-lg hover:bg-gray-800/80 transition focus:outline-none">
+        <svg id="menu-icon-open" class="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+          <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 6h16M4 12h16M4 18h16"></path>
+        </svg>
+        <svg id="menu-icon-close" class="w-6 h-6 hidden" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+          <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M6 18L18 6M6 6l12 12"></path>
+        </svg>
+      </button>
+    </div>
+
+    <!-- Mobile Drawer Menu -->
+    <div id="mobile-menu" class="hidden md:hidden px-6 pt-4 pb-5 mt-3 border-t border-gray-800/80 space-y-3 font-medium text-sm text-gray-300">
+      <a href="#about" onclick="toggleMobileMenu()" class="block py-2 hover:text-brand-400 transition">About</a>
+      <a href="#experience" onclick="toggleMobileMenu()" class="block py-2 hover:text-brand-400 transition">Experience</a>
+      <a href="#projects" onclick="toggleMobileMenu()" class="block py-2 hover:text-brand-400 transition">Projects</a>
+      <a href="#skills" onclick="toggleMobileMenu()" class="block py-2 hover:text-brand-400 transition">Skills</a>
+      <a href="#education" onclick="toggleMobileMenu()" class="block py-2 hover:text-brand-400 transition">Education</a>
     </div>
   </nav>
 
-  <!-- Hero Section -->
-  <header id="about" class="pt-36 pb-20 px-6 max-w-6xl mx-auto">
-    <div class="max-w-3xl">
-      <div class="inline-flex items-center gap-2 px-3 py-1 rounded-full text-xs font-mono text-brand-500 bg-brand-500/10 border border-brand-500/20 mb-6">
-        <span class="w-2 h-2 rounded-full bg-brand-500 animate-pulse"></span>
-        AI/ML Engineer & Systems Specialist
-      </div>
-      <h1 class="text-4xl sm:text-6xl font-bold text-white tracking-tight leading-tight mb-6">
-        Engineering high-throughput GenAI, LLM pipelines & distributed ML systems.
-      </h1>
-      <p class="text-lg text-gray-400 leading-relaxed mb-8">
-        3+ years of experience building production-grade developer infrastructure and ML architectures at Qualcomm and Axis Bank. MSc student in Artificial Intelligence Applications & Innovation at Imperial College London.
-      </p>
+  <!-- Hero Section with Interactive Terminal -->
+  <header id="about" class="relative pt-28 sm:pt-36 pb-16 sm:pb-20 px-4 sm:px-6 max-w-6xl mx-auto z-10">
+    <div class="grid grid-cols-1 lg:grid-cols-12 gap-8 lg:gap-10 items-center">
       
-      <div class="flex flex-wrap items-center gap-4 text-sm font-medium">
-        <a href="mailto:akhilbaja.work@gmail.com" class="flex items-center gap-2 px-5 py-2.5 rounded-lg bg-gray-900 border border-gray-700 hover:border-brand-500 hover:text-white text-gray-300 transition">
-          <i data-lucide="mail" class="w-4 h-4"></i> akhilbaja.work@gmail.com
-        </a>
-        <a href="https://linkedin.com/in/akhilbaja" target="_blank" class="flex items-center gap-2 px-5 py-2.5 rounded-lg bg-gray-900 border border-gray-700 hover:border-brand-500 hover:text-white text-gray-300 transition">
-          <i data-lucide="linkedin" class="w-4 h-4"></i> LinkedIn
-        </a>
-        <a href="https://github.com/AkhilBaja3005" target="_blank" class="flex items-center gap-2 px-5 py-2.5 rounded-lg bg-gray-900 border border-gray-700 hover:border-brand-500 hover:text-white text-gray-300 transition">
-          <i data-lucide="github" class="w-4 h-4"></i> GitHub
-        </a>
+      <!-- Left Hero Text -->
+      <div class="lg:col-span-7">
+        <div class="inline-flex flex-wrap items-center gap-2.5 px-3.5 py-1.5 rounded-full text-xs font-mono text-brand-400 bg-brand-500/10 border border-brand-500/20 mb-6 backdrop-blur-sm">
+          <span class="flex h-2 w-2 relative">
+            <span class="animate-ping absolute inline-flex h-full w-full rounded-full bg-emerald-400 opacity-75"></span>
+            <span class="relative inline-flex rounded-full h-2 w-2 bg-emerald-500"></span>
+          </span>
+          <span>Available for AI / ML Systems Roles</span>
+          <span class="text-gray-500">•</span>
+          <span class="text-gray-400">London (UTC+0)</span>
+        </div>
+
+        <h1 class="text-3xl sm:text-5xl lg:text-6xl font-extrabold text-white tracking-tight leading-tight mb-6">
+          Engineering high-throughput <span class="text-transparent bg-clip-text bg-gradient-to-r from-brand-400 to-emerald-200">GenAI, LLM pipelines</span> & distributed ML systems.
+        </h1>
+
+        <p class="text-base sm:text-lg text-gray-300 leading-relaxed mb-8 font-light">
+          3+ years building production-grade developer infrastructure and ML architectures at <strong class="text-white font-medium">Qualcomm</strong> and <strong class="text-white font-medium">Axis Bank</strong>. MSc student in Artificial Intelligence Applications & Innovation at <strong class="text-white font-medium">Imperial College London</strong>.
+        </p>
+        
+        <div class="flex flex-col sm:flex-row flex-wrap items-stretch sm:items-center gap-3 sm:gap-4 text-sm font-medium">
+          <a href="mailto:akhilbaja.work@gmail.com" class="flex items-center justify-center gap-2 px-5 py-2.5 rounded-lg bg-gray-900/90 border border-gray-700/80 hover:border-brand-500 hover:text-white text-gray-300 transition shadow-sm">
+            <svg class="w-4 h-4 text-brand-400" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24">
+              <path stroke-linecap="round" stroke-linejoin="round" d="M3 8l7.89 5.26a2 2 0 002.22 0L21 8M5 19h14a2 2 0 002-2V7a2 2 0 00-2-2H5a2 2 0 00-2 2v10a2 2 0 002 2z"></path>
+            </svg>
+            akhilbaja.work@gmail.com
+          </a>
+
+          <div class="flex items-center gap-3">
+            <a href="https://linkedin.com/in/akhilbaja" target="_blank" rel="noopener noreferrer" class="flex-1 sm:flex-initial flex items-center justify-center gap-2 px-5 py-2.5 rounded-lg bg-gray-900/90 border border-gray-700/80 hover:border-[#0077b5] hover:text-white text-gray-300 transition group shadow-sm">
+              <svg class="w-4 h-4 fill-[#0A66C2] group-hover:scale-110 transition-transform" viewBox="0 0 24 24">
+                <path d="M19 3a2 2 0 0 1 2 2v14a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2V5a2 2 0 0 1 2-2h14m-.5 15.5v-5.3a3.26 3.26 0 0 0-3.26-3.26c-.85 0-1.84.52-2.28 1.3v-1.11h-2.79v8.37h2.79v-4.93c0-.77.62-1.4 1.39-1.4a1.4 1.4 0 0 1 1.4 1.4v4.93h2.75M6.46 10.9v8.37H9.2V10.9H6.46M7.83 6.2a1.62 1.62 0 0 0-1.63 1.62c0 .9.73 1.63 1.63 1.63.9 0 1.63-.73 1.63-1.63A1.62 1.62 0 0 0 7.83 6.2Z"/>
+              </svg>
+              <span class="group-hover:text-white font-medium">LinkedIn</span>
+              <i data-lucide="arrow-up-right" class="w-3.5 h-3.5 text-gray-500 group-hover:text-white transition"></i>
+            </a>
+
+            <a href="https://github.com/AkhilBaja3005" target="_blank" rel="noopener noreferrer" class="flex-1 sm:flex-initial flex items-center justify-center gap-2 px-5 py-2.5 rounded-lg bg-gray-900/90 border border-gray-700/80 hover:border-white hover:text-white text-gray-300 transition group shadow-sm">
+              <svg class="w-4 h-4 fill-white group-hover:scale-110 transition-transform" viewBox="0 0 24 24">
+                <path fill-rule="evenodd" clip-rule="evenodd" d="M12 2C6.477 2 2 6.484 2 12.017c0 4.425 2.865 8.18 6.839 9.504.5.092.682-.217.682-.483 0-.237-.008-.868-.013-1.703-2.782.605-3.369-1.343-3.369-1.343-.454-1.158-1.11-1.466-1.11-1.466-.908-.62.069-.608.069-.608 1.003.07 1.53 1.032 1.53 1.032.892 1.53 2.341 1.088 2.91.832.092-.647.35-1.088.636-1.338-2.22-.253-4.555-1.113-4.555-4.951 0-1.093.39-1.988 1.029-2.688-.103-.253-.446-1.272.098-2.65 0 0 .84-.27 2.75 1.026A9.564 9.564 0 0112 6.844c.85.004 1.705.115 2.504.337 1.909-1.296 2.747-1.027 2.747-1.027.546 1.379.202 2.398.1 2.651.64.7 1.028 1.595 1.028 2.688 0 3.848-2.339 4.695-4.566 4.943.359.309.678.92.678 1.855 0 1.338-.012 2.419-.012 2.747 0 .268.18.58.688.482A10.019 10.019 0 0022 12.017C22 6.484 17.522 2 12 2z"/>
+              </svg>
+              <span class="group-hover:text-white font-medium">GitHub</span>
+              <i data-lucide="arrow-up-right" class="w-3.5 h-3.5 text-gray-500 group-hover:text-white transition"></i>
+            </a>
+          </div>
+        </div>
       </div>
+
+      <!-- Right: Interactive Engineering Terminal -->
+      <div class="lg:col-span-5">
+        <div class="glass-card rounded-xl overflow-hidden border border-gray-800 shadow-2xl">
+          <!-- Terminal Titlebar -->
+          <div class="terminal-header px-4 py-3 flex items-center justify-between select-none">
+            <div class="flex items-center gap-2">
+              <div class="w-3 h-3 rounded-full bg-red-500/80"></div>
+              <div class="w-3 h-3 rounded-full bg-yellow-500/80"></div>
+              <div class="w-3 h-3 rounded-full bg-green-500/80"></div>
+              <span class="text-xs font-mono text-gray-400 ml-2">akhil@ml-node-01:~</span>
+            </div>
+            <div class="flex items-center gap-2 text-xs font-mono text-emerald-400 bg-emerald-950/60 px-2 py-0.5 rounded border border-emerald-800/40">
+              <span class="w-1.5 h-1.5 rounded-full bg-emerald-400 animate-ping"></span>
+              LIVE SH
+            </div>
+          </div>
+
+          <!-- Terminal Screen -->
+          <div id="terminal-body" class="p-4 bg-gray-950/95 font-mono text-xs text-gray-300 h-80 overflow-y-auto custom-scrollbar leading-relaxed">
+            <div class="text-gray-500">// Welcome to Akhil's AI/ML engineering environment</div>
+            <div class="text-gray-500">// Type <span class="text-brand-400">help</span> for available commands or click quick actions below.</div>
+            <div class="my-2 border-b border-gray-800/60"></div>
+            
+            <div class="text-brand-400">$ python -m pipeline --status</div>
+            <div class="text-gray-300">✓ AST Engine: <span class="text-emerald-400">ONLINE</span> (Java, C++, Python, C)</div>
+            <div class="text-gray-300">✓ Retrieval Latency: <span class="text-emerald-400">-60% (AST dependency pruned)</span></div>
+            <div class="text-gray-300">✓ Anomaly Engine: <span class="text-emerald-400">£30M+ Risk Coverage</span></div>
+            <div class="text-gray-300">✓ Imperial MSc: <span class="text-emerald-400">Enrolled (AI Applications & Innovation)</span></div>
+            
+            <div id="terminal-output" class="space-y-1.5 my-2"></div>
+            
+            <!-- Active Prompt Line -->
+            <form id="terminal-form" onsubmit="handleTerminalCommand(event)" class="flex items-center gap-1.5 mt-2">
+              <span class="text-brand-400 font-bold">$</span>
+              <input id="terminal-input" type="text" autocomplete="off" spellcheck="false" placeholder="type 'help', 'skills', 'projects'..." class="flex-1 bg-transparent border-none outline-none text-white font-mono text-xs placeholder:text-gray-600" />
+            </form>
+          </div>
+
+          <!-- Terminal Quick Buttons -->
+          <div class="p-2.5 bg-gray-900/90 border-t border-gray-800/80 flex items-center gap-2 overflow-x-auto text-[11px] font-mono custom-scrollbar">
+            <span class="text-gray-500 text-[10px] uppercase font-bold pl-1">Quick:</span>
+            <button onclick="runCommand('skills')" class="px-2.5 py-1 rounded bg-gray-800 hover:bg-brand-500/20 hover:text-brand-400 text-gray-300 transition border border-gray-700/60">skills</button>
+            <button onclick="runCommand('projects')" class="px-2.5 py-1 rounded bg-gray-800 hover:bg-brand-500/20 hover:text-brand-400 text-gray-300 transition border border-gray-700/60">projects</button>
+            <button onclick="runCommand('benchmarks')" class="px-2.5 py-1 rounded bg-gray-800 hover:bg-brand-500/20 hover:text-brand-400 text-gray-300 transition border border-gray-700/60">benchmarks</button>
+            <button onclick="runCommand('contact')" class="px-2.5 py-1 rounded bg-gray-800 hover:bg-brand-500/20 hover:text-brand-400 text-gray-300 transition border border-gray-700/60">contact</button>
+            <button onclick="runCommand('clear')" class="px-2 py-1 rounded bg-gray-800 hover:bg-red-500/20 hover:text-red-400 text-gray-400 transition border border-gray-700/60">clear</button>
+          </div>
+        </div>
+      </div>
+
     </div>
   </header>
 
-  <!-- Metric Highlights -->
-  <section class="border-y border-gray-800 bg-gray-900/40 py-12 px-6">
-    <div class="max-w-6xl mx-auto grid grid-cols-2 md:grid-cols-4 gap-8">
-      <div>
-        <div class="text-3xl font-bold text-white tracking-tight mono text-brand-500">60% ↓</div>
-        <div class="text-xs text-gray-400 uppercase tracking-wider mt-1">Retrieval Latency Reduction</div>
+  <!-- Metric Highlights with Live Counter Polish -->
+  <section class="border-y border-gray-800/80 bg-gray-900/40 py-10 sm:py-12 px-4 sm:px-6 backdrop-blur-sm relative z-10">
+    <div class="max-w-6xl mx-auto grid grid-cols-2 md:grid-cols-4 gap-4 sm:gap-8">
+      <div class="p-4 rounded-xl glass-card border border-gray-800/60">
+        <div class="text-3xl sm:text-4xl font-bold text-brand-400 tracking-tight mono">60% ↓</div>
+        <div class="text-xs text-gray-400 uppercase tracking-wider mt-1 font-medium">Retrieval Latency Reduction</div>
+        <div class="w-full bg-gray-800 h-1.5 rounded-full mt-3 overflow-hidden">
+          <div class="bg-brand-500 h-full rounded-full" style="width: 60%"></div>
+        </div>
       </div>
-      <div>
-        <div class="text-3xl font-bold text-white tracking-tight mono text-brand-500">46% ↑</div>
-        <div class="text-xs text-gray-400 uppercase tracking-wider mt-1">LLM Accuracy Improvement</div>
+      
+      <div class="p-4 rounded-xl glass-card border border-gray-800/60">
+        <div class="text-3xl sm:text-4xl font-bold text-brand-400 tracking-tight mono">46% ↑</div>
+        <div class="text-xs text-gray-400 uppercase tracking-wider mt-1 font-medium">LLM Accuracy Improvement</div>
+        <div class="w-full bg-gray-800 h-1.5 rounded-full mt-3 overflow-hidden">
+          <div class="bg-brand-500 h-full rounded-full" style="width: 46%"></div>
+        </div>
       </div>
-      <div>
-        <div class="text-3xl font-bold text-white tracking-tight mono text-brand-500">93% ↓</div>
-        <div class="text-xs text-gray-400 uppercase tracking-wider mt-1">Parser Latency Slashed</div>
+      
+      <div class="p-4 rounded-xl glass-card border border-gray-800/60">
+        <div class="text-3xl sm:text-4xl font-bold text-brand-400 tracking-tight mono">93% ↓</div>
+        <div class="text-xs text-gray-400 uppercase tracking-wider mt-1 font-medium">Parser Latency Slashed</div>
+        <div class="w-full bg-gray-800 h-1.5 rounded-full mt-3 overflow-hidden">
+          <div class="bg-brand-500 h-full rounded-full" style="width: 93%"></div>
+        </div>
       </div>
-      <div>
-        <div class="text-3xl font-bold text-white tracking-tight mono text-brand-500">1,000+</div>
-        <div class="text-xs text-gray-400 uppercase tracking-wider mt-1">Active Users Served</div>
+      
+      <div class="p-4 rounded-xl glass-card border border-gray-800/60">
+        <div class="text-3xl sm:text-4xl font-bold text-brand-400 tracking-tight mono">1,000+</div>
+        <div class="text-xs text-gray-400 uppercase tracking-wider mt-1 font-medium">Active Users Served</div>
+        <div class="w-full bg-gray-800 h-1.5 rounded-full mt-3 overflow-hidden">
+          <div class="bg-brand-500 h-full rounded-full" style="width: 85%"></div>
+        </div>
       </div>
     </div>
   </section>
 
-  <!-- Experience -->
-  <section id="experience" class="py-20 px-6 max-w-6xl mx-auto">
-    <h2 class="text-2xl font-bold text-white tracking-tight mb-10 flex items-center gap-3">
-      <i data-lucide="briefcase" class="w-6 h-6 text-brand-500"></i> Work Experience
-    </h2>
+  <!-- Experience Section -->
+  <section id="experience" class="py-20 px-6 max-w-6xl mx-auto relative z-10">
+    <div class="flex items-center justify-between mb-10">
+      <h2 class="text-2xl font-bold text-white tracking-tight flex items-center gap-3">
+        <i data-lucide="briefcase" class="w-6 h-6 text-brand-500"></i> Work Experience
+      </h2>
+      <span class="text-xs font-mono text-gray-400">Qualcomm • Axis Bank</span>
+    </div>
+
     <div class="space-y-8">
       
       <!-- Qualcomm -->
-      <div class="glass-card rounded-xl p-8 relative overflow-hidden transition">
+      <div class="glass-card rounded-xl p-6 sm:p-8 relative overflow-hidden">
         <div class="flex flex-col md:flex-row md:items-center justify-between gap-2 mb-4">
           <div>
-            <h3 class="text-xl font-bold text-white">Software Engineer (GenAI / Systems)</h3>
-            <div class="text-brand-500 text-sm font-medium">Qualcomm</div>
+            <div class="flex items-center gap-2">
+              <h3 class="text-lg sm:text-xl font-bold text-white">Software Engineer (GenAI / Systems)</h3>
+              <span class="px-2 py-0.5 text-[11px] font-mono text-emerald-400 bg-emerald-500/10 border border-emerald-500/20 rounded">Award Winner</span>
+            </div>
+            <div class="text-brand-400 text-sm font-medium">Qualcomm</div>
           </div>
-          <span class="text-xs font-mono text-gray-400 bg-gray-800 px-3 py-1 rounded-full w-fit">Dec 2024 – Aug 2026</span>
+          <span class="text-xs font-mono text-gray-300 bg-gray-800/90 border border-gray-700/60 px-3 py-1 rounded-full w-fit">Dec 2024 – Aug 2026</span>
         </div>
-        <ul class="space-y-3 text-sm text-gray-300 list-disc list-inside mb-6">
-          <li>Engineered a cross-language LLM context engineering pipeline using AST-based dependency extraction across Java, Python, C, and C++, reducing retrieval latency by 60% and improving accuracy by 46% (Qualcomm Certificate of Recognition).</li>
-          <li>Re-architected central data-harvesting pipeline for 1,000+ users, cutting deployment failure rate by 84% via asynchronous RabbitMQ queues and containerized Docker/Rancher microservices.</li>
-          <li>Slashed static analysis parser execution latency by 93% and consolidated 200+ unit tests into a Linux-compatible test harness, cutting maintenance overhead by 60%.</li>
+        
+        <ul class="space-y-3 text-sm text-gray-300 list-disc list-inside mb-6 font-light leading-relaxed">
+          <li><strong class="text-white font-medium">Cross-Language LLM Pipeline:</strong> Engineered AST-based context engineering pipeline across Java, Python, C, and C++, reducing retrieval latency by 60% and improving accuracy by 46% (Qualcomm Certificate of Recognition).</li>
+          <li><strong class="text-white font-medium">Distributed Harvester:</strong> Re-architected central data-harvesting pipeline for 1,000+ users, cutting deployment failure rate by 84% via asynchronous RabbitMQ queues and containerized Docker/Rancher microservices.</li>
+          <li><strong class="text-white font-medium">Performance Engineering:</strong> Slashed static analysis parser execution latency by 93% and consolidated 200+ unit tests into a Linux-compatible test harness, cutting maintenance overhead by 60%.</li>
         </ul>
-        <div class="flex flex-wrap gap-2 pt-2 border-t border-gray-800">
-          <span class="text-xs font-mono px-2.5 py-1 rounded bg-gray-800 text-gray-400">Python</span>
-          <span class="text-xs font-mono px-2.5 py-1 rounded bg-gray-800 text-gray-400">C++</span>
-          <span class="text-xs font-mono px-2.5 py-1 rounded bg-gray-800 text-gray-400">AST Parsing</span>
-          <span class="text-xs font-mono px-2.5 py-1 rounded bg-gray-800 text-gray-400">RabbitMQ</span>
-          <span class="text-xs font-mono px-2.5 py-1 rounded bg-gray-800 text-gray-400">Docker</span>
-          <span class="text-xs font-mono px-2.5 py-1 rounded bg-gray-800 text-gray-400">Rancher</span>
+
+        <div class="flex flex-wrap gap-2 pt-3 border-t border-gray-800/80">
+          <span class="text-xs font-mono px-2.5 py-1 rounded bg-gray-800/70 text-gray-300 border border-gray-700/40">Python</span>
+          <span class="text-xs font-mono px-2.5 py-1 rounded bg-gray-800/70 text-gray-300 border border-gray-700/40">C++</span>
+          <span class="text-xs font-mono px-2.5 py-1 rounded bg-gray-800/70 text-gray-300 border border-gray-700/40">AST Parsing</span>
+          <span class="text-xs font-mono px-2.5 py-1 rounded bg-gray-800/70 text-gray-300 border border-gray-700/40">RabbitMQ</span>
+          <span class="text-xs font-mono px-2.5 py-1 rounded bg-gray-800/70 text-gray-300 border border-gray-700/40">Docker</span>
+          <span class="text-xs font-mono px-2.5 py-1 rounded bg-gray-800/70 text-gray-300 border border-gray-700/40">Rancher</span>
         </div>
       </div>
 
       <!-- Axis Bank -->
-      <div class="glass-card rounded-xl p-8 relative overflow-hidden transition">
+      <div class="glass-card rounded-xl p-6 sm:p-8 relative overflow-hidden">
         <div class="flex flex-col md:flex-row md:items-center justify-between gap-2 mb-4">
           <div>
-            <h3 class="text-xl font-bold text-white">Data Scientist (AI/ML)</h3>
-            <div class="text-brand-500 text-sm font-medium">Axis Bank</div>
+            <div class="flex items-center gap-2">
+              <h3 class="text-lg sm:text-xl font-bold text-white">Data Scientist (AI/ML)</h3>
+              <span class="px-2 py-0.5 text-[11px] font-mono text-emerald-400 bg-emerald-500/10 border border-emerald-500/20 rounded">BIU Star Award</span>
+            </div>
+            <div class="text-brand-400 text-sm font-medium">Axis Bank</div>
           </div>
-          <span class="text-xs font-mono text-gray-400 bg-gray-800 px-3 py-1 rounded-full w-fit">July 2023 – Dec 2024</span>
+          <span class="text-xs font-mono text-gray-300 bg-gray-800/90 border border-gray-700/60 px-3 py-1 rounded-full w-fit">July 2023 – Dec 2024</span>
         </div>
-        <ul class="space-y-3 text-sm text-gray-300 list-disc list-inside mb-6">
-          <li>Deployed an enterprise GenAI assistant with Azure OpenAI & Cloudera ML for 1,000+ employees, reducing internal query resolution time by 70%.</li>
-          <li>Engineered an Isolation Forest anomaly detection model for Gold Loans, flagging branch-level risk patterns tied to £30M+ in projected loss exposure and cutting manual review time by 80% (BIU Star Award).</li>
-          <li>Automated Dynamic Risk Rating via XGBoost and Naive Bayes pipelines, cutting manual effort by ~40% and complying with RBI regulatory standards.</li>
+
+        <ul class="space-y-3 text-sm text-gray-300 list-disc list-inside mb-6 font-light leading-relaxed">
+          <li><strong class="text-white font-medium">Enterprise GenAI Assistant:</strong> Deployed with Azure OpenAI & Cloudera ML for 1,000+ employees, reducing internal query resolution time by 70%.</li>
+          <li><strong class="text-white font-medium">Anomaly Detection:</strong> Engineered Isolation Forest anomaly detection model for Gold Loans, flagging branch-level risk patterns tied to £30M+ in projected loss exposure and cutting manual review time by 80% (BIU Star Award).</li>
+          <li><strong class="text-white font-medium">Automated Dynamic Risk:</strong> XGBoost and Naive Bayes risk classification pipelines, cutting manual effort by ~40% and complying with RBI regulatory standards.</li>
         </ul>
-        <div class="flex flex-wrap gap-2 pt-2 border-t border-gray-800">
-          <span class="text-xs font-mono px-2.5 py-1 rounded bg-gray-800 text-gray-400">Azure OpenAI</span>
-          <span class="text-xs font-mono px-2.5 py-1 rounded bg-gray-800 text-gray-400">PySpark</span>
-          <span class="text-xs font-mono px-2.5 py-1 rounded bg-gray-800 text-gray-400">XGBoost</span>
-          <span class="text-xs font-mono px-2.5 py-1 rounded bg-gray-800 text-gray-400">Isolation Forest</span>
-          <span class="text-xs font-mono px-2.5 py-1 rounded bg-gray-800 text-gray-400">Cloudera ML</span>
+
+        <div class="flex flex-wrap gap-2 pt-3 border-t border-gray-800/80">
+          <span class="text-xs font-mono px-2.5 py-1 rounded bg-gray-800/70 text-gray-300 border border-gray-700/40">Azure OpenAI</span>
+          <span class="text-xs font-mono px-2.5 py-1 rounded bg-gray-800/70 text-gray-300 border border-gray-700/40">PySpark</span>
+          <span class="text-xs font-mono px-2.5 py-1 rounded bg-gray-800/70 text-gray-300 border border-gray-700/40">XGBoost</span>
+          <span class="text-xs font-mono px-2.5 py-1 rounded bg-gray-800/70 text-gray-300 border border-gray-700/40">Isolation Forest</span>
+          <span class="text-xs font-mono px-2.5 py-1 rounded bg-gray-800/70 text-gray-300 border border-gray-700/40">Cloudera ML</span>
         </div>
       </div>
 
     </div>
   </section>
 
-  <!-- Projects -->
-  <section id="projects" class="py-20 px-6 max-w-6xl mx-auto">
-    <h2 class="text-2xl font-bold text-white tracking-tight mb-10 flex items-center gap-3">
-      <i data-lucide="layers" class="w-6 h-6 text-brand-500"></i> Featured Technical Projects
-    </h2>
-    <div class="grid grid-cols-1 md:grid-cols-3 gap-6">
+  <!-- Open Source & GitHub Repositories -->
+  <section id="projects" class="py-16 sm:py-20 px-4 sm:px-6 max-w-6xl mx-auto relative z-10">
+    <div class="flex flex-col md:flex-row md:items-end justify-between mb-8 gap-4">
+      <div>
+        <h2 class="text-2xl font-bold text-white tracking-tight flex items-center gap-3">
+          <i data-lucide="folder-git-2" class="w-6 h-6 text-brand-500"></i> Open Source & GitHub Projects
+        </h2>
+        <p class="text-sm text-gray-400 mt-2">Active open-source tools, AI agents, RAG platforms, and production systems.</p>
+      </div>
+      <a href="https://github.com/AkhilBaja3005" target="_blank" rel="noopener noreferrer" class="inline-flex items-center gap-2 text-sm text-brand-400 hover:text-brand-300 font-mono transition">
+        <span>github.com/AkhilBaja3005</span>
+        <i data-lucide="arrow-up-right" class="w-4 h-4"></i>
+      </a>
+    </div>
 
-      <!-- Project 1 -->
-      <div class="glass-card rounded-xl p-6 flex flex-col justify-between transition">
+    <!-- Category Filter Tabs for GitHub Repos -->
+    <div class="flex flex-wrap items-center gap-2 mb-8 text-xs font-mono">
+      <button onclick="filterProjects('all')" class="filter-btn active px-3.5 py-1.5 rounded-lg border border-gray-800 bg-gray-900/80 text-gray-300 hover:text-white transition">All Repositories</button>
+      <button onclick="filterProjects('genai')" class="filter-btn px-3.5 py-1.5 rounded-lg border border-gray-800 bg-gray-900/80 text-gray-300 hover:text-white transition">GenAI & Agents</button>
+      <button onclick="filterProjects('rag')" class="filter-btn px-3.5 py-1.5 rounded-lg border border-gray-800 bg-gray-900/80 text-gray-300 hover:text-white transition">RAG & Retrieval</button>
+      <button onclick="filterProjects('systems')" class="filter-btn px-3.5 py-1.5 rounded-lg border border-gray-800 bg-gray-900/80 text-gray-300 hover:text-white transition">Automation & Systems</button>
+    </div>
+
+    <div id="projects-grid" class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
+
+      <!-- notes-taker -->
+      <div class="project-card glass-card rounded-xl p-6 flex flex-col justify-between group" data-category="genai">
         <div>
-          <div class="text-xs font-mono text-brand-500 mb-2 uppercase tracking-wide">Deep Learning</div>
-          <h3 class="text-lg font-bold text-white mb-3">Cosmic Ray Segmentation</h3>
-          <p class="text-sm text-gray-400 mb-4 leading-relaxed">
-            Enhanced the deepCR model for cosmic-ray detection in astronomical images using residual connections and U-Net architecture, improving pixel-level precision by 15%.
+          <div class="flex items-center justify-between mb-3">
+            <span class="text-xs font-mono text-brand-400 uppercase tracking-wide bg-brand-500/10 px-2.5 py-1 rounded border border-brand-500/20">AI Study Copilot</span>
+            <a href="https://github.com/AkhilBaja3005/notes-taker" target="_blank" rel="noopener noreferrer" class="inline-flex items-center gap-1.5 text-xs font-mono text-gray-400 hover:text-white bg-gray-800/80 hover:bg-gray-700/80 border border-gray-700/60 px-2.5 py-1 rounded-md transition" aria-label="notes-taker repository">
+              <svg class="w-4 h-4 fill-current" viewBox="0 0 24 24"><path fill-rule="evenodd" clip-rule="evenodd" d="M12 2C6.477 2 2 6.484 2 12.017c0 4.425 2.865 8.18 6.839 9.504.5.092.682-.217.682-.483 0-.237-.008-.868-.013-1.703-2.782.605-3.369-1.343-3.369-1.343-.454-1.158-1.11-1.466-1.11-1.466-.908-.62.069-.608.069-.608 1.003.07 1.53 1.032 1.53 1.032.892 1.53 2.341 1.088 2.91.832.092-.647.35-1.088.636-1.338-2.22-.253-4.555-1.113-4.555-4.951 0-1.093.39-1.988 1.029-2.688-.103-.253-.446-1.272.098-2.65 0 0 .84-.27 2.75 1.026A9.564 9.564 0 0112 6.844c.85.004 1.705.115 2.504.337 1.909-1.296 2.747-1.027 2.747-1.027.546 1.379.202 2.398.1 2.651.64.7 1.028 1.595 1.028 2.688 0 3.848-2.339 4.695-4.566 4.943.359.309.678.92.678 1.855 0 1.338-.012 2.419-.012 2.747 0 .268.18.58.688.482A10.019 10.019 0 0022 12.017C22 6.484 17.522 2 12 2z"/></svg>
+              <span>Repo</span>
+              <i data-lucide="arrow-up-right" class="w-3 h-3"></i>
+            </a>
+          </div>
+          <h3 class="text-lg font-bold text-white mb-2 group-hover:text-brand-400 transition">Autonomous Academic Lecture Copilot</h3>
+          <p class="text-sm text-gray-400 mb-4 leading-relaxed font-light">
+            Local-first and cloud-deployable AI assistant for STEM coursework. Features lecture audio/video transcription, slide OCR, and contextual Q&A.
           </p>
         </div>
-        <div class="flex flex-wrap gap-2 pt-4 border-t border-gray-800/80">
-          <span class="text-xs font-mono px-2 py-0.5 rounded bg-gray-800 text-gray-300">U-Net</span>
-          <span class="text-xs font-mono px-2 py-0.5 rounded bg-gray-800 text-gray-300">Residual Nets</span>
-          <span class="text-xs font-mono px-2 py-0.5 rounded bg-gray-800 text-gray-300">PyTorch</span>
+        <div>
+          <div class="flex flex-wrap gap-2 pt-4 border-t border-gray-800/80">
+            <span class="text-xs font-mono px-2 py-0.5 rounded bg-gray-800 text-gray-300">Python</span>
+            <span class="text-xs font-mono px-2 py-0.5 rounded bg-gray-800 text-gray-300">Docker</span>
+            <span class="text-xs font-mono px-2 py-0.5 rounded bg-gray-800 text-gray-300">Study Copilot</span>
+          </div>
         </div>
       </div>
 
-      <!-- Project 2 -->
-      <div class="glass-card rounded-xl p-6 flex flex-col justify-between transition">
+      <!-- custom-rag -->
+      <div class="project-card glass-card rounded-xl p-6 flex flex-col justify-between group" data-category="rag">
         <div>
-          <div class="text-xs font-mono text-brand-500 mb-2 uppercase tracking-wide">Computer Vision</div>
-          <h3 class="text-lg font-bold text-white mb-3">Tuberculosis Detection Pipeline</h3>
-          <p class="text-sm text-gray-400 mb-4 leading-relaxed">
-            Transfer-learning architecture combining U-Net segmentation and DenseNet classification across 5,000+ chest X-rays, achieving +12% classification accuracy over baseline.
+          <div class="flex items-center justify-between mb-3">
+            <span class="text-xs font-mono text-brand-400 uppercase tracking-wide bg-brand-500/10 px-2.5 py-1 rounded border border-brand-500/20">Enterprise RAG</span>
+            <a href="https://github.com/AkhilBaja3005/custom-rag" target="_blank" rel="noopener noreferrer" class="inline-flex items-center gap-1.5 text-xs font-mono text-gray-400 hover:text-white bg-gray-800/80 hover:bg-gray-700/80 border border-gray-700/60 px-2.5 py-1 rounded-md transition" aria-label="custom-rag repository">
+              <svg class="w-4 h-4 fill-current" viewBox="0 0 24 24"><path fill-rule="evenodd" clip-rule="evenodd" d="M12 2C6.477 2 2 6.484 2 12.017c0 4.425 2.865 8.18 6.839 9.504.5.092.682-.217.682-.483 0-.237-.008-.868-.013-1.703-2.782.605-3.369-1.343-3.369-1.343-.454-1.158-1.11-1.466-1.11-1.466-.908-.62.069-.608.069-.608 1.003.07 1.53 1.032 1.53 1.032.892 1.53 2.341 1.088 2.91.832.092-.647.35-1.088.636-1.338-2.22-.253-4.555-1.113-4.555-4.951 0-1.093.39-1.988 1.029-2.688-.103-.253-.446-1.272.098-2.65 0 0 .84-.27 2.75 1.026A9.564 9.564 0 0112 6.844c.85.004 1.705.115 2.504.337 1.909-1.296 2.747-1.027 2.747-1.027.546 1.379.202 2.398.1 2.651.64.7 1.028 1.595 1.028 2.688 0 3.848-2.339 4.695-4.566 4.943.359.309.678.92.678 1.855 0 1.338-.012 2.419-.012 2.747 0 .268.18.58.688.482A10.019 10.019 0 0022 12.017C22 6.484 17.522 2 12 2z"/></svg>
+              <span>Repo</span>
+              <i data-lucide="arrow-up-right" class="w-3 h-3"></i>
+            </a>
+          </div>
+          <h3 class="text-lg font-bold text-white mb-2 group-hover:text-brand-400 transition">Large-Scale PDF Hybrid RAG Engine</h3>
+          <p class="text-sm text-gray-400 mb-4 leading-relaxed font-light">
+            Engineered for 10k–100k+ page corpora. Combines hybrid dense/sparse search, vision-native page parsing for diagrams, and community-graph chunk re-clustering.
           </p>
         </div>
-        <div class="flex flex-wrap gap-2 pt-4 border-t border-gray-800/80">
-          <span class="text-xs font-mono px-2 py-0.5 rounded bg-gray-800 text-gray-300">DenseNet</span>
-          <span class="text-xs font-mono px-2 py-0.5 rounded bg-gray-800 text-gray-300">U-Net</span>
-          <span class="text-xs font-mono px-2 py-0.5 rounded bg-gray-800 text-gray-300">Computer Vision</span>
+        <div>
+          <div class="flex flex-wrap gap-2 pt-4 border-t border-gray-800/80">
+            <span class="text-xs font-mono px-2 py-0.5 rounded bg-gray-800 text-gray-300">Python</span>
+            <span class="text-xs font-mono px-2 py-0.5 rounded bg-gray-800 text-gray-300">Hybrid Search</span>
+            <span class="text-xs font-mono px-2 py-0.5 rounded bg-gray-800 text-gray-300">Graph Clustering</span>
+          </div>
         </div>
       </div>
 
-      <!-- Project 3 -->
-      <div class="glass-card rounded-xl p-6 flex flex-col justify-between transition">
+      <!-- job-finder -->
+      <div class="project-card glass-card rounded-xl p-6 flex flex-col justify-between group" data-category="genai">
         <div>
-          <div class="text-xs font-mono text-brand-500 mb-2 uppercase tracking-wide">Data Infrastructure</div>
-          <h3 class="text-lg font-bold text-white mb-3">Scientific Publications Database</h3>
-          <p class="text-sm text-gray-400 mb-4 leading-relaxed">
-            Designed and optimized a PostgreSQL schema and targeted indexing strategies for 2M+ research papers, accelerating query response times by 45%.
+          <div class="flex items-center justify-between mb-3">
+            <span class="text-xs font-mono text-brand-400 uppercase tracking-wide bg-brand-500/10 px-2.5 py-1 rounded border border-brand-500/20">Agentic AI</span>
+            <a href="https://github.com/AkhilBaja3005/job-finder" target="_blank" rel="noopener noreferrer" class="inline-flex items-center gap-1.5 text-xs font-mono text-gray-400 hover:text-white bg-gray-800/80 hover:bg-gray-700/80 border border-gray-700/60 px-2.5 py-1 rounded-md transition" aria-label="job-finder repository">
+              <svg class="w-4 h-4 fill-current" viewBox="0 0 24 24"><path fill-rule="evenodd" clip-rule="evenodd" d="M12 2C6.477 2 2 6.484 2 12.017c0 4.425 2.865 8.18 6.839 9.504.5.092.682-.217.682-.483 0-.237-.008-.868-.013-1.703-2.782.605-3.369-1.343-3.369-1.343-.454-1.158-1.11-1.466-1.11-1.466-.908-.62.069-.608.069-.608 1.003.07 1.53 1.032 1.53 1.032.892 1.53 2.341 1.088 2.91.832.092-.647.35-1.088.636-1.338-2.22-.253-4.555-1.113-4.555-4.951 0-1.093.39-1.988 1.029-2.688-.103-.253-.446-1.272.098-2.65 0 0 .84-.27 2.75 1.026A9.564 9.564 0 0112 6.844c.85.004 1.705.115 2.504.337 1.909-1.296 2.747-1.027 2.747-1.027.546 1.379.202 2.398.1 2.651.64.7 1.028 1.595 1.028 2.688 0 3.848-2.339 4.695-4.566 4.943.359.309.678.92.678 1.855 0 1.338-.012 2.419-.012 2.747 0 .268.18.58.688.482A10.019 10.019 0 0022 12.017C22 6.484 17.522 2 12 2z"/></svg>
+              <span>Repo</span>
+              <i data-lucide="arrow-up-right" class="w-3 h-3"></i>
+            </a>
+          </div>
+          <h3 class="text-lg font-bold text-white mb-2 group-hover:text-brand-400 transition">AI Job Finder & Matching Agent</h3>
+          <p class="text-sm text-gray-400 mb-4 leading-relaxed font-light">
+            Autonomous job discovery and application assistant. Ingests candidate resumes, discovers matching opportunities across job portals, and computes semantic fit scores against JDs.
           </p>
         </div>
-        <div class="flex flex-wrap gap-2 pt-4 border-t border-gray-800/80">
-          <span class="text-xs font-mono px-2 py-0.5 rounded bg-gray-800 text-gray-300">PostgreSQL</span>
-          <span class="text-xs font-mono px-2 py-0.5 rounded bg-gray-800 text-gray-300">Query Optimization</span>
-          <span class="text-xs font-mono px-2 py-0.5 rounded bg-gray-800 text-gray-300">Indexing</span>
+        <div>
+          <div class="flex flex-wrap gap-2 pt-4 border-t border-gray-800/80">
+            <span class="text-xs font-mono px-2 py-0.5 rounded bg-gray-800 text-gray-300">Python</span>
+            <span class="text-xs font-mono px-2 py-0.5 rounded bg-gray-800 text-gray-300">FastAPI</span>
+            <span class="text-xs font-mono px-2 py-0.5 rounded bg-gray-800 text-gray-300">Docker</span>
+          </div>
+        </div>
+      </div>
+
+      <!-- us-visa-slot-checker -->
+      <div class="project-card glass-card rounded-xl p-6 flex flex-col justify-between group" data-category="systems">
+        <div>
+          <div class="flex items-center justify-between mb-3">
+            <span class="text-xs font-mono text-brand-400 uppercase tracking-wide bg-brand-500/10 px-2.5 py-1 rounded border border-brand-500/20">Automation & Systems</span>
+            <a href="https://github.com/AkhilBaja3005/us-visa-slot-checker" target="_blank" rel="noopener noreferrer" class="inline-flex items-center gap-1.5 text-xs font-mono text-gray-400 hover:text-white bg-gray-800/80 hover:bg-gray-700/80 border border-gray-700/60 px-2.5 py-1 rounded-md transition" aria-label="us-visa-slot-checker repository">
+              <svg class="w-4 h-4 fill-current" viewBox="0 0 24 24"><path fill-rule="evenodd" clip-rule="evenodd" d="M12 2C6.477 2 2 6.484 2 12.017c0 4.425 2.865 8.18 6.839 9.504.5.092.682-.217.682-.483 0-.237-.008-.868-.013-1.703-2.782.605-3.369-1.343-3.369-1.343-.454-1.158-1.11-1.466-1.11-1.466-.908-.62.069-.608.069-.608 1.003.07 1.53 1.032 1.53 1.032.892 1.53 2.341 1.088 2.91.832.092-.647.35-1.088.636-1.338-2.22-.253-4.555-1.113-4.555-4.951 0-1.093.39-1.988 1.029-2.688-.103-.253-.446-1.272.098-2.65 0 0 .84-.27 2.75 1.026A9.564 9.564 0 0112 6.844c.85.004 1.705.115 2.504.337 1.909-1.296 2.747-1.027 2.747-1.027.546 1.379.202 2.398.1 2.651.64.7 1.028 1.595 1.028 2.688 0 3.848-2.339 4.695-4.566 4.943.359.309.678.92.678 1.855 0 1.338-.012 2.419-.012 2.747 0 .268.18.58.688.482A10.019 10.019 0 0022 12.017C22 6.484 17.522 2 12 2z"/></svg>
+              <span>Repo</span>
+              <i data-lucide="arrow-up-right" class="w-3 h-3"></i>
+            </a>
+          </div>
+          <h3 class="text-lg font-bold text-white mb-2 group-hover:text-brand-400 transition">US Visa Slot Checker & Alert Suite</h3>
+          <p class="text-sm text-gray-400 mb-4 leading-relaxed font-light">
+            Enterprise monitoring and real-time dashboard suite for India VAC appointments. Features dual-engine automation with anti-detect browser techniques and instant alerting.
+          </p>
+        </div>
+        <div>
+          <div class="flex flex-wrap gap-2 pt-4 border-t border-gray-800/80">
+            <span class="text-xs font-mono px-2 py-0.5 rounded bg-gray-800 text-gray-300">JavaScript</span>
+            <span class="text-xs font-mono px-2 py-0.5 rounded bg-gray-800 text-gray-300">Browser Automation</span>
+            <span class="text-xs font-mono px-2 py-0.5 rounded bg-gray-800 text-gray-300">Real-Time Alerts</span>
+          </div>
+        </div>
+      </div>
+
+      <!-- expense-tracker -->
+      <div class="project-card glass-card rounded-xl p-6 flex flex-col justify-between group" data-category="systems">
+        <div>
+          <div class="flex items-center justify-between mb-3">
+            <span class="text-xs font-mono text-brand-400 uppercase tracking-wide bg-brand-500/10 px-2.5 py-1 rounded border border-brand-500/20">Web App</span>
+            <a href="https://github.com/AkhilBaja3005/expense-tracker" target="_blank" rel="noopener noreferrer" class="inline-flex items-center gap-1.5 text-xs font-mono text-gray-400 hover:text-white bg-gray-800/80 hover:bg-gray-700/80 border border-gray-700/60 px-2.5 py-1 rounded-md transition" aria-label="expense-tracker repository">
+              <svg class="w-4 h-4 fill-current" viewBox="0 0 24 24"><path fill-rule="evenodd" clip-rule="evenodd" d="M12 2C6.477 2 2 6.484 2 12.017c0 4.425 2.865 8.18 6.839 9.504.5.092.682-.217.682-.483 0-.237-.008-.868-.013-1.703-2.782.605-3.369-1.343-3.369-1.343-.454-1.158-1.11-1.466-1.11-1.466-.908-.62.069-.608.069-.608 1.003.07 1.53 1.032 1.53 1.032.892 1.53 2.341 1.088 2.91.832.092-.647.35-1.088.636-1.338-2.22-.253-4.555-1.113-4.555-4.951 0-1.093.39-1.988 1.029-2.688-.103-.253-.446-1.272.098-2.65 0 0 .84-.27 2.75 1.026A9.564 9.564 0 0112 6.844c.85.004 1.705.115 2.504.337 1.909-1.296 2.747-1.027 2.747-1.027.546 1.379.202 2.398.1 2.651.64.7 1.028 1.595 1.028 2.688 0 3.848-2.339 4.695-4.566 4.943.359.309.678.92.678 1.855 0 1.338-.012 2.419-.012 2.747 0 .268.18.58.688.482A10.019 10.019 0 0022 12.017C22 6.484 17.522 2 12 2z"/></svg>
+              <span>Repo</span>
+              <i data-lucide="arrow-up-right" class="w-3 h-3"></i>
+            </a>
+          </div>
+          <h3 class="text-lg font-bold text-white mb-2 group-hover:text-brand-400 transition">Modern Expense Management</h3>
+          <p class="text-sm text-gray-400 mb-4 leading-relaxed font-light">
+            Fast, responsive personal finance dashboard built with React and Vite, featuring transaction categorization, spending metrics, and reactive state management.
+          </p>
+        </div>
+        <div>
+          <div class="flex flex-wrap gap-2 pt-4 border-t border-gray-800/80">
+            <span class="text-xs font-mono px-2 py-0.5 rounded bg-gray-800 text-gray-300">React</span>
+            <span class="text-xs font-mono px-2 py-0.5 rounded bg-gray-800 text-gray-300">Vite</span>
+            <span class="text-xs font-mono px-2 py-0.5 rounded bg-gray-800 text-gray-300">Tailwind CSS</span>
+          </div>
         </div>
       </div>
 
     </div>
+
+    <!-- Academic & Applied ML Research Section -->
+    <div class="mt-16 pt-12 border-t border-gray-800/80">
+      <div class="mb-8">
+        <h3 class="text-xl font-bold text-white tracking-tight flex items-center gap-2.5">
+          <i data-lucide="sparkles" class="w-5 h-5 text-brand-500"></i> Academic & Applied ML Research
+        </h3>
+        <p class="text-sm text-gray-400 mt-1">Deep learning and database systems research conducted at IIT Hyderabad.</p>
+      </div>
+
+      <div class="grid grid-cols-1 md:grid-cols-3 gap-6">
+
+        <!-- Research 1: Cosmic Ray -->
+        <div class="glass-card rounded-xl p-6 flex flex-col justify-between">
+          <div>
+            <div class="flex items-center justify-between mb-3">
+              <span class="text-xs font-mono text-brand-400 uppercase tracking-wide bg-brand-500/10 px-2.5 py-1 rounded border border-brand-500/20">Deep Learning</span>
+              <span class="text-xs font-mono text-gray-500">IIT Hyderabad</span>
+            </div>
+            <h4 class="text-base font-bold text-white mb-2">Cosmic Ray Astronomical Segmentation</h4>
+            <p class="text-sm text-gray-400 mb-4 leading-relaxed font-light">
+              Enhanced deepCR model for cosmic-ray detection in astronomical images using residual connections and U-Net architecture, improving pixel precision by 15%.
+            </p>
+          </div>
+          <div>
+            <div class="flex flex-wrap gap-2 pt-4 border-t border-gray-800/80 mb-3">
+              <span class="text-xs font-mono px-2 py-0.5 rounded bg-gray-800/70 text-gray-300">U-Net</span>
+              <span class="text-xs font-mono px-2 py-0.5 rounded bg-gray-800/70 text-gray-300">Residual Nets</span>
+              <span class="text-xs font-mono px-2 py-0.5 rounded bg-gray-800/70 text-gray-300">PyTorch</span>
+            </div>
+            <div class="inline-flex items-center gap-1.5 text-xs font-mono text-emerald-400 font-medium">
+              <span class="w-1.5 h-1.5 rounded-full bg-emerald-400"></span> +15% Pixel Precision Gain
+            </div>
+          </div>
+        </div>
+
+        <!-- Research 2: TB Detection -->
+        <div class="glass-card rounded-xl p-6 flex flex-col justify-between">
+          <div>
+            <div class="flex items-center justify-between mb-3">
+              <span class="text-xs font-mono text-brand-400 uppercase tracking-wide bg-brand-500/10 px-2.5 py-1 rounded border border-brand-500/20">Computer Vision</span>
+              <span class="text-xs font-mono text-gray-500">Medical AI</span>
+            </div>
+            <h4 class="text-base font-bold text-white mb-2">Tuberculosis Detection Pipeline</h4>
+            <p class="text-sm text-gray-400 mb-4 leading-relaxed font-light">
+              Transfer-learning architecture combining U-Net segmentation and DenseNet classification across 5,000+ chest X-rays, achieving +12% accuracy over baseline.
+            </p>
+          </div>
+          <div>
+            <div class="flex flex-wrap gap-2 pt-4 border-t border-gray-800/80 mb-3">
+              <span class="text-xs font-mono px-2 py-0.5 rounded bg-gray-800/70 text-gray-300">DenseNet</span>
+              <span class="text-xs font-mono px-2 py-0.5 rounded bg-gray-800/70 text-gray-300">U-Net</span>
+              <span class="text-xs font-mono px-2 py-0.5 rounded bg-gray-800/70 text-gray-300">Medical AI</span>
+            </div>
+            <div class="inline-flex items-center gap-1.5 text-xs font-mono text-emerald-400 font-medium">
+              <span class="w-1.5 h-1.5 rounded-full bg-emerald-400"></span> +12% Baseline Boost
+            </div>
+          </div>
+        </div>
+
+        <!-- Research 3: Scientific DB -->
+        <div class="glass-card rounded-xl p-6 flex flex-col justify-between">
+          <div>
+            <div class="flex items-center justify-between mb-3">
+              <span class="text-xs font-mono text-brand-400 uppercase tracking-wide bg-brand-500/10 px-2.5 py-1 rounded border border-brand-500/20">Data Infrastructure</span>
+              <span class="text-xs font-mono text-gray-500">PostgreSQL</span>
+            </div>
+            <h4 class="text-base font-bold text-white mb-2">Scientific Publications Database</h4>
+            <p class="text-sm text-gray-400 mb-4 leading-relaxed font-light">
+              Engineered PostgreSQL schema and targeted indexing strategies for 2M+ research papers, accelerating query response latency by 45%.
+            </p>
+          </div>
+          <div>
+            <div class="flex flex-wrap gap-2 pt-4 border-t border-gray-800/80 mb-3">
+              <span class="text-xs font-mono px-2 py-0.5 rounded bg-gray-800/70 text-gray-300">PostgreSQL</span>
+              <span class="text-xs font-mono px-2 py-0.5 rounded bg-gray-800/70 text-gray-300">Indexing</span>
+              <span class="text-xs font-mono px-2 py-0.5 rounded bg-gray-800/70 text-gray-300">Optimization</span>
+            </div>
+            <div class="inline-flex items-center gap-1.5 text-xs font-mono text-emerald-400 font-medium">
+              <span class="w-1.5 h-1.5 rounded-full bg-emerald-400"></span> 45% Faster Querying
+            </div>
+          </div>
+        </div>
+
+      </div>
+    </div>
   </section>
 
-  <!-- Technical Skills -->
-  <section id="skills" class="py-20 px-6 max-w-6xl mx-auto">
+  <!-- Technical Skills Section -->
+  <section id="skills" class="py-16 sm:py-20 px-4 sm:px-6 max-w-6xl mx-auto relative z-10">
     <h2 class="text-2xl font-bold text-white tracking-tight mb-10 flex items-center gap-3">
       <i data-lucide="cpu" class="w-6 h-6 text-brand-500"></i> Technical Expertise
     </h2>
     <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-6">
       
       <div class="glass-card rounded-xl p-6">
-        <h3 class="text-sm font-bold text-white uppercase tracking-wider mb-4 text-brand-500">Languages</h3>
-        <p class="text-sm text-gray-300 leading-relaxed font-mono">Python, SQL, C++, Java</p>
+        <h3 class="text-sm font-bold uppercase tracking-wider mb-4 text-brand-400 flex items-center gap-2">
+          <i data-lucide="code-2" class="w-4 h-4"></i> Languages
+        </h3>
+        <p class="text-sm text-gray-300 leading-relaxed font-mono">Python, SQL, C++, Java, JavaScript, TypeScript, Bash</p>
       </div>
 
       <div class="glass-card rounded-xl p-6">
-        <h3 class="text-sm font-bold text-white uppercase tracking-wider mb-4 text-brand-500">AI / ML & GenAI</h3>
-        <p class="text-sm text-gray-300 leading-relaxed">Generative AI, LLMs, RAG, Context Engineering, Deep Learning, Anomaly Detection, XGBoost, Naive Bayes, Computer Vision (U-Net, DenseNet)</p>
+        <h3 class="text-sm font-bold uppercase tracking-wider mb-4 text-brand-400 flex items-center gap-2">
+          <i data-lucide="brain-circuit" class="w-4 h-4"></i> AI / ML & GenAI
+        </h3>
+        <p class="text-sm text-gray-300 leading-relaxed font-light">Generative AI, LLMs, Hybrid RAG, Context Engineering, PyTorch, Anomaly Detection, XGBoost, U-Net, DenseNet</p>
       </div>
 
       <div class="glass-card rounded-xl p-6">
-        <h3 class="text-sm font-bold text-white uppercase tracking-wider mb-4 text-brand-500">Data & Platforms</h3>
-        <p class="text-sm text-gray-300 leading-relaxed">PySpark, Azure OpenAI, Cloudera ML, PostgreSQL, SAS EG</p>
+        <h3 class="text-sm font-bold uppercase tracking-wider mb-4 text-brand-400 flex items-center gap-2">
+          <i data-lucide="database" class="w-4 h-4"></i> Data & Platforms
+        </h3>
+        <p class="text-sm text-gray-300 leading-relaxed font-light">PySpark, Azure OpenAI, Cloudera ML, PostgreSQL, Redis, Vector Databases, SAS EG</p>
       </div>
 
       <div class="glass-card rounded-xl p-6">
-        <h3 class="text-sm font-bold text-white uppercase tracking-wider mb-4 text-brand-500">Infra & Systems</h3>
-        <p class="text-sm text-gray-300 leading-relaxed">Docker, Rancher, RabbitMQ, Jenkins, Git, AST Parsing, Static Analysis, Distributed Systems, CI/CD</p>
+        <h3 class="text-sm font-bold uppercase tracking-wider mb-4 text-brand-400 flex items-center gap-2">
+          <i data-lucide="server" class="w-4 h-4"></i> Infra & Systems
+        </h3>
+        <p class="text-sm text-gray-300 leading-relaxed font-light">Docker, Rancher, RabbitMQ, Jenkins, Git, AST Parsing, Microservices, CI/CD</p>
       </div>
 
     </div>
   </section>
 
-  <!-- Education -->
-  <section id="education" class="py-20 px-6 max-w-6xl mx-auto">
+  <!-- Education Section -->
+  <section id="education" class="py-16 sm:py-20 px-4 sm:px-6 max-w-6xl mx-auto relative z-10">
     <h2 class="text-2xl font-bold text-white tracking-tight mb-10 flex items-center gap-3">
       <i data-lucide="graduation-cap" class="w-6 h-6 text-brand-500"></i> Education
     </h2>
@@ -265,32 +709,235 @@
       <div class="glass-card rounded-xl p-6">
         <div class="flex justify-between items-start mb-2">
           <h3 class="text-lg font-bold text-white">Imperial College London</h3>
-          <span class="text-xs font-mono text-gray-400">2026 – 2027</span>
+          <span class="text-xs font-mono text-gray-300 bg-gray-800/90 border border-gray-700/60 px-2.5 py-1 rounded-full">2026 – 2027</span>
         </div>
-        <div class="text-sm text-brand-500 mb-2 font-medium">MSc in Artificial Intelligence Applications and Innovation</div>
+        <div class="text-sm text-brand-400 mb-2 font-medium">MSc in Artificial Intelligence Applications and Innovation</div>
         <div class="text-xs text-gray-400">London, UK</div>
       </div>
 
       <div class="glass-card rounded-xl p-6">
         <div class="flex justify-between items-start mb-2">
           <h3 class="text-lg font-bold text-white">IIT Hyderabad</h3>
-          <span class="text-xs font-mono text-gray-400">2019 – 2023</span>
+          <span class="text-xs font-mono text-gray-300 bg-gray-800/90 border border-gray-700/60 px-2.5 py-1 rounded-full">2019 – 2023</span>
         </div>
-        <div class="text-sm text-brand-500 mb-2 font-medium">B.Tech in Engineering Science (CPI: 8.04 / 10.0)</div>
+        <div class="text-sm text-brand-400 mb-2 font-medium">B.Tech in Engineering Science (CPI: 8.04 / 10.0)</div>
         <div class="text-xs text-gray-400">Internship and Placement Cell Coordinator (Corporate outreach for 100+ firms)</div>
       </div>
 
     </div>
   </section>
 
+  <!-- Toast Notification for Copy Actions -->
+  <div id="copy-toast" class="fixed bottom-6 right-6 z-50 flex items-center gap-2.5 bg-gray-900 border border-brand-500/50 text-white px-4 py-3 rounded-xl shadow-2xl font-mono text-xs">
+    <i data-lucide="check-circle-2" class="w-4 h-4 text-brand-400"></i>
+    <span id="toast-message">Copied to clipboard!</span>
+  </div>
+
   <!-- Footer -->
-  <footer class="border-t border-gray-800 py-10 px-6 text-center text-xs text-gray-500">
-    <p>© 2026 Akhil Baja. Designed for high-performance ML engineering.</p>
+  <footer class="border-t border-gray-800/80 py-8 px-4 sm:px-6 text-center text-xs text-gray-500 relative z-10">
+    <div class="max-w-6xl mx-auto flex flex-col sm:flex-row items-center justify-between gap-2">
+      <p>© 2026 Akhil Baja. Designed for high-performance ML engineering.</p>
+      <p class="font-mono text-gray-600">London, UK</p>
+    </div>
   </footer>
 
+  <!-- Frontend Logic: Neural Background + Interactive Terminal + Filter Tabs + Toast -->
   <script>
-    // Initialize Lucide icons
+    // 1. Initialize Lucide Icons
     lucide.createIcons();
+
+    // 2. Interactive Neural Mesh Background Canvas
+    (function initNeuralCanvas() {
+      const canvas = document.getElementById('neural-canvas');
+      if (!canvas) return;
+      const ctx = canvas.getContext('2d');
+      let width, height;
+      let particles = [];
+      const particleCount = Math.min(Math.floor(window.innerWidth / 20), 65);
+      const maxDistance = 140;
+
+      function resize() {
+        width = canvas.width = window.innerWidth;
+        height = canvas.height = window.innerHeight;
+      }
+      window.addEventListener('resize', resize);
+      resize();
+
+      class Particle {
+        constructor() {
+          this.x = Math.random() * width;
+          this.y = Math.random() * height;
+          this.vx = (Math.random() - 0.5) * 0.4;
+          this.vy = (Math.random() - 0.5) * 0.4;
+          this.radius = Math.random() * 1.5 + 1;
+        }
+        update() {
+          this.x += this.vx;
+          this.y += this.vy;
+          if (this.x < 0 || this.x > width) this.vx *= -1;
+          if (this.y < 0 || this.y > height) this.vy *= -1;
+        }
+        draw() {
+          ctx.beginPath();
+          ctx.arc(this.x, this.y, this.radius, 0, Math.PI * 2);
+          ctx.fillStyle = 'rgba(74, 222, 128, 0.4)';
+          ctx.fill();
+        }
+      }
+
+      for (let i = 0; i < particleCount; i++) {
+        particles.push(new Particle());
+      }
+
+      function animate() {
+        ctx.clearRect(0, 0, width, height);
+
+        for (let i = 0; i < particles.length; i++) {
+          particles[i].update();
+          particles[i].draw();
+
+          for (let j = i + 1; j < particles.length; j++) {
+            const dx = particles[i].x - particles[j].x;
+            const dy = particles[i].y - particles[j].y;
+            const dist = Math.sqrt(dx * dx + dy * dy);
+
+            if (dist < maxDistance) {
+              ctx.beginPath();
+              ctx.moveTo(particles[i].x, particles[i].y);
+              ctx.lineTo(particles[j].x, particles[j].y);
+              const alpha = (1 - dist / maxDistance) * 0.15;
+              ctx.strokeStyle = `rgba(74, 222, 128, ${alpha})`;
+              ctx.lineWidth = 0.8;
+              ctx.stroke();
+            }
+          }
+        }
+        requestAnimationFrame(animate);
+      }
+      animate();
+    })();
+
+    // 3. Interactive Hero Terminal
+    const commandResponses = {
+      help: `Available commands:
+  • <span class="text-brand-400">skills</span>     - View core technical stack
+  • <span class="text-brand-400">projects</span>   - List featured open-source repositories
+  • <span class="text-brand-400">benchmarks</span> - View quantitative performance metrics
+  • <span class="text-brand-400">contact</span>    - Show verified reach-out channels
+  • <span class="text-brand-400">education</span>  - Academic background
+  • <span class="text-brand-400">clear</span>      - Clear terminal screen`,
+      skills: `<span class="text-emerald-400">Languages:</span> Python, SQL, C++, Java, JS, TS, Bash
+<span class="text-emerald-400">AI / ML:</span> LLMs, RAG, PyTorch, AST Parsing, XGBoost, U-Net, DenseNet
+<span class="text-emerald-400">Systems:</span> Docker, Rancher, RabbitMQ, Jenkins, Microservices`,
+      projects: `• <a href="https://github.com/AkhilBaja3005/notes-taker" target="_blank" class="text-brand-400 underline">notes-taker</a>: Autonomous STEM lecture AI assistant
+• <a href="https://github.com/AkhilBaja3005/custom-rag" target="_blank" class="text-brand-400 underline">custom-rag</a>: Enterprise 100k-page hybrid RAG platform
+• <a href="https://github.com/AkhilBaja3005/job-finder" target="_blank" class="text-brand-400 underline">job-finder</a>: Agentic job matching & scoring engine
+• <a href="https://github.com/AkhilBaja3005/us-visa-slot-checker" target="_blank" class="text-brand-400 underline">us-visa-slot-checker</a>: Anti-detect monitoring suite`,
+      benchmarks: `<span class="text-emerald-400">60% ↓</span> Retrieval latency reduction via AST dependency pruning
+<span class="text-emerald-400">46% ↑</span> LLM accuracy improvement in cross-language context
+<span class="text-emerald-400">93% ↓</span> Static analysis parser execution time
+<span class="text-emerald-400">£30M+</span> Risk exposure coverage via Isolation Forest model`,
+      contact: `Email:    <a href="mailto:akhilbaja.work@gmail.com" class="text-brand-400 underline">akhilbaja.work@gmail.com</a>
+LinkedIn: <a href="https://linkedin.com/in/akhilbaja" target="_blank" class="text-brand-400 underline">linkedin.com/in/akhilbaja</a>
+GitHub:   <a href="https://github.com/AkhilBaja3005" target="_blank" class="text-brand-400 underline">github.com/AkhilBaja3005</a>`,
+      education: `• MSc in Artificial Intelligence Applications & Innovation - Imperial College London (2026-2027)
+• B.Tech in Engineering Science (CPI: 8.04/10) - IIT Hyderabad (2019-2023)`
+    };
+
+    function appendTerminal(text, isCmd = false) {
+      const output = document.getElementById('terminal-output');
+      const div = document.createElement('div');
+      if (isCmd) {
+        div.className = "text-brand-400 font-semibold mt-2";
+        div.innerHTML = `$ ${text}`;
+      } else {
+        div.className = "text-gray-300 whitespace-pre-wrap leading-relaxed";
+        div.innerHTML = text;
+      }
+      output.appendChild(div);
+      const body = document.getElementById('terminal-body');
+      body.scrollTop = body.scrollHeight;
+    }
+
+    function handleTerminalCommand(e) {
+      e.preventDefault();
+      const input = document.getElementById('terminal-input');
+      const cmd = input.value.trim().toLowerCase();
+      if (!cmd) return;
+      input.value = '';
+      runCommand(cmd);
+    }
+
+    function runCommand(cmd) {
+      if (cmd === 'clear') {
+        document.getElementById('terminal-output').innerHTML = '';
+        return;
+      }
+      appendTerminal(cmd, true);
+      if (commandResponses[cmd]) {
+        appendTerminal(commandResponses[cmd]);
+      } else {
+        appendTerminal(`Command not found: "${cmd}". Type <span class="text-brand-400">help</span> for commands.`);
+      }
+    }
+
+    // 4. Filter Projects by Category
+    function filterProjects(category) {
+      const buttons = document.querySelectorAll('.filter-btn');
+      buttons.forEach(btn => {
+        btn.classList.remove('active');
+        if (btn.innerText.toLowerCase().includes(category) || (category === 'all' && btn.innerText.includes('All'))) {
+          btn.classList.add('active');
+        }
+      });
+
+      const cards = document.querySelectorAll('.project-card');
+      cards.forEach(card => {
+        const cardCat = card.getAttribute('data-category');
+        if (category === 'all' || cardCat === category) {
+          card.style.display = 'flex';
+          card.style.opacity = '0';
+          setTimeout(() => { card.style.opacity = '1'; }, 50);
+        } else {
+          card.style.display = 'none';
+        }
+      });
+    }
+
+    // 5. Toast Clipboard Helper
+    function copyToClipboard(text, message = 'Copied to clipboard!') {
+      navigator.clipboard.writeText(text).then(() => {
+        const toast = document.getElementById('copy-toast');
+        const toastMsg = document.getElementById('toast-message');
+        toastMsg.textContent = message;
+        toast.classList.add('show');
+        setTimeout(() => {
+          toast.classList.remove('show');
+        }, 2800);
+      });
+    }
+
+    // 6. Mobile Drawer Toggle
+    function toggleMobileMenu() {
+      const menu = document.getElementById('mobile-menu');
+      const openIcon = document.getElementById('menu-icon-open');
+      const closeIcon = document.getElementById('menu-icon-close');
+      if (menu.classList.contains('hidden')) {
+        menu.classList.remove('hidden');
+        openIcon.classList.add('hidden');
+        closeIcon.classList.remove('hidden');
+      } else {
+        menu.classList.add('hidden');
+        openIcon.classList.remove('hidden');
+        closeIcon.classList.add('hidden');
+      }
+    }
+
+    // 7. Interactive Mouse Spotlight (Brittany Chiang style)
+    window.addEventListener('pointermove', (e) => {
+      document.documentElement.style.setProperty('--mouse-x', `${e.clientX}px`);
+      document.documentElement.style.setProperty('--mouse-y', `${e.clientY}px`);
+    });
   </script>
 </body>
 </html>
