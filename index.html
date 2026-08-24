@@ -159,6 +159,108 @@
       background: rgba(34, 197, 94, 0.12);
       border-color: rgba(74, 222, 128, 0.3);
     }
+
+    /* Page load fade-in */
+    body { animation: pageIn 0.5s ease-out both; }
+    @keyframes pageIn {
+      from { opacity: 0; transform: translateY(6px); }
+      to   { opacity: 1; transform: translateY(0); }
+    }
+
+    /* Scroll-reveal: elements start hidden and animate in */
+    .reveal {
+      opacity: 0;
+      transform: translateY(28px);
+      transition: opacity 0.55s cubic-bezier(0.22, 1, 0.36, 1), transform 0.55s cubic-bezier(0.22, 1, 0.36, 1);
+    }
+    .reveal.visible {
+      opacity: 1;
+      transform: translateY(0);
+    }
+    .reveal-delay-1 { transition-delay: 0.08s; }
+    .reveal-delay-2 { transition-delay: 0.16s; }
+    .reveal-delay-3 { transition-delay: 0.24s; }
+    .reveal-delay-4 { transition-delay: 0.32s; }
+
+    /* Active nav link */
+    nav a.nav-active {
+      color: #4ade80;
+    }
+
+    /* Experience timeline */
+    .timeline-track {
+      position: relative;
+      padding-left: 1.75rem;
+    }
+    .timeline-track::before {
+      content: '';
+      position: absolute;
+      left: 0;
+      top: 0.75rem;
+      bottom: 0.75rem;
+      width: 2px;
+      background: linear-gradient(to bottom, rgba(34,197,94,0.6), rgba(34,197,94,0.08));
+      border-radius: 2px;
+    }
+    .timeline-dot {
+      position: absolute;
+      left: -1.75rem;
+      top: 1.5rem;
+      width: 10px;
+      height: 10px;
+      border-radius: 50%;
+      background: #22c55e;
+      box-shadow: 0 0 10px rgba(34,197,94,0.5);
+      border: 2px solid #030712;
+    }
+
+    /* Skills pill grid */
+    .skill-pill {
+      display: inline-flex;
+      align-items: center;
+      gap: 0.35rem;
+      padding: 0.3rem 0.75rem;
+      border-radius: 9999px;
+      font-size: 0.72rem;
+      font-family: 'JetBrains Mono', monospace;
+      background: rgba(30, 41, 59, 0.8);
+      border: 1px solid rgba(255,255,255,0.08);
+      color: #cbd5e1;
+      transition: all 0.2s ease;
+    }
+    .skill-pill:hover {
+      border-color: rgba(74,222,128,0.4);
+      color: #4ade80;
+      background: rgba(34,197,94,0.08);
+    }
+
+    /* Toast fix — add .show CSS rule */
+    #copy-toast.show {
+      transform: translateY(0) !important;
+      opacity: 1 !important;
+    }
+
+    /* CSS-only typewriter fallback (if DemoLab SVG fails to load) */
+    .hero-typewriter-fallback {
+      display: none;
+      font-family: 'JetBrains Mono', monospace;
+      font-size: clamp(1.35rem, 3.5vw, 2rem);
+      font-weight: 700;
+      color: #22c55e;
+      overflow: hidden;
+      white-space: nowrap;
+      border-right: 2px solid #22c55e;
+      animation: typeFallback 3s steps(30, end) infinite, blinkCursor 0.75s step-end infinite;
+      max-width: 100%;
+    }
+    @keyframes typeFallback {
+      0%   { width: 0; content: 'AI / ML Systems Engineer'; }
+      100% { width: 100%; }
+    }
+    @keyframes blinkCursor {
+      from, to { border-color: transparent; }
+      50%       { border-color: #22c55e; }
+    }
   </style>
 </head>
 <body class="bg-gray-950 text-gray-200 antialiased selection:bg-brand-500 selection:text-black min-h-screen relative bg-grid">
@@ -322,11 +424,14 @@
         <!-- SVG Typewriter headline -->
         <div class="mb-6 -ml-1">
           <img
+            id="hero-typing-svg"
             src="https://readme-typing-svg.demolab.com?font=JetBrains+Mono&weight=700&size=28&duration=2800&pause=900&color=22C55E&center=false&vCenter=true&multiline=false&width=640&height=60&lines=AI+%2F+ML+Systems+Engineer;Distributed+GenAI+%26+LLM+Pipelines;High-Throughput+ML+Infrastructure;Open+to+AI+Roles+%E2%80%94+London+%2F+Remote"
             alt="Akhil Baja — AI/ML Systems Engineer"
             class="max-w-full"
             style="filter: drop-shadow(0 0 18px rgba(34,197,94,0.25));"
+            onerror="this.style.display='none'; document.getElementById('hero-typing-fallback').style.display='block';"
           />
+          <span id="hero-typing-fallback" class="hero-typewriter-fallback">AI / ML Systems Engineer</span>
         </div>
 
         <!-- Static subline beneath typewriter -->
@@ -420,32 +525,40 @@
   <!-- Metric Highlights with Live Counter Polish -->
   <section class="border-y border-gray-800/80 bg-gray-900/40 py-10 sm:py-12 px-4 sm:px-6 backdrop-blur-sm relative z-10">
     <div class="max-w-6xl mx-auto grid grid-cols-2 md:grid-cols-4 gap-4 sm:gap-8">
-      <div class="p-4 rounded-xl glass-card border border-gray-800/60">
-        <div class="text-3xl sm:text-4xl font-bold text-brand-400 tracking-tight mono">60% ↓</div>
+      <div class="p-4 rounded-xl glass-card border border-gray-800/60 reveal reveal-delay-1">
+        <div class="text-3xl sm:text-4xl font-bold text-brand-400 tracking-tight mono">
+          <span class="stat-counter" data-target="60" data-suffix="% ↓">60% ↓</span>
+        </div>
         <div class="text-xs text-gray-400 uppercase tracking-wider mt-1 font-medium">Retrieval Latency Reduction</div>
         <div class="w-full bg-gray-800 h-1.5 rounded-full mt-3 overflow-hidden">
           <div class="bg-brand-500 h-full rounded-full" style="width: 60%"></div>
         </div>
       </div>
       
-      <div class="p-4 rounded-xl glass-card border border-gray-800/60">
-        <div class="text-3xl sm:text-4xl font-bold text-brand-400 tracking-tight mono">46% ↑</div>
+      <div class="p-4 rounded-xl glass-card border border-gray-800/60 reveal reveal-delay-2">
+        <div class="text-3xl sm:text-4xl font-bold text-brand-400 tracking-tight mono">
+          <span class="stat-counter" data-target="46" data-suffix="% ↑">46% ↑</span>
+        </div>
         <div class="text-xs text-gray-400 uppercase tracking-wider mt-1 font-medium">LLM Accuracy Improvement</div>
         <div class="w-full bg-gray-800 h-1.5 rounded-full mt-3 overflow-hidden">
           <div class="bg-brand-500 h-full rounded-full" style="width: 46%"></div>
         </div>
       </div>
       
-      <div class="p-4 rounded-xl glass-card border border-gray-800/60">
-        <div class="text-3xl sm:text-4xl font-bold text-brand-400 tracking-tight mono">93% ↓</div>
+      <div class="p-4 rounded-xl glass-card border border-gray-800/60 reveal reveal-delay-3">
+        <div class="text-3xl sm:text-4xl font-bold text-brand-400 tracking-tight mono">
+          <span class="stat-counter" data-target="93" data-suffix="% ↓">93% ↓</span>
+        </div>
         <div class="text-xs text-gray-400 uppercase tracking-wider mt-1 font-medium">Parser Latency Slashed</div>
         <div class="w-full bg-gray-800 h-1.5 rounded-full mt-3 overflow-hidden">
           <div class="bg-brand-500 h-full rounded-full" style="width: 93%"></div>
         </div>
       </div>
       
-      <div class="p-4 rounded-xl glass-card border border-gray-800/60">
-        <div class="text-3xl sm:text-4xl font-bold text-brand-400 tracking-tight mono">1,000+</div>
+      <div class="p-4 rounded-xl glass-card border border-gray-800/60 reveal reveal-delay-4">
+        <div class="text-3xl sm:text-4xl font-bold text-brand-400 tracking-tight mono">
+          <span class="stat-counter" data-target="1000" data-suffix="+" data-prefix="">1,000+</span>
+        </div>
         <div class="text-xs text-gray-400 uppercase tracking-wider mt-1 font-medium">Active Users Served</div>
         <div class="w-full bg-gray-800 h-1.5 rounded-full mt-3 overflow-hidden">
           <div class="bg-brand-500 h-full rounded-full" style="width: 85%"></div>
@@ -463,10 +576,11 @@
       <span class="text-xs font-mono text-gray-400">Qualcomm • Axis Bank</span>
     </div>
 
-    <div class="space-y-8">
+    <div class="timeline-track space-y-8">
       
       <!-- Qualcomm -->
-      <div class="glass-card rounded-xl p-6 sm:p-8 relative overflow-hidden">
+      <div class="glass-card rounded-xl p-6 sm:p-8 relative overflow-hidden reveal reveal-delay-1">
+        <div class="timeline-dot"></div>
         <div class="flex flex-col md:flex-row md:items-center justify-between gap-2 mb-4">
           <div>
             <div class="flex items-center gap-2">
@@ -495,7 +609,8 @@
       </div>
 
       <!-- Axis Bank -->
-      <div class="glass-card rounded-xl p-6 sm:p-8 relative overflow-hidden">
+      <div class="glass-card rounded-xl p-6 sm:p-8 relative overflow-hidden reveal reveal-delay-2">
+        <div class="timeline-dot"></div>
         <div class="flex flex-col md:flex-row md:items-center justify-between gap-2 mb-4">
           <div>
             <div class="flex items-center gap-2">
@@ -551,7 +666,7 @@
     <div id="projects-grid" class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
 
       <!-- 1. notes-taker -->
-      <div class="project-card glass-card rounded-xl p-6 flex flex-col justify-between group" data-category="genai">
+      <div class="project-card glass-card rounded-xl p-6 flex flex-col justify-between group reveal" data-category="genai">
         <div>
           <div class="flex items-center justify-between mb-3">
             <span class="text-xs font-mono text-brand-400 uppercase tracking-wide bg-brand-500/10 px-2.5 py-1 rounded border border-brand-500/20">AI Study Copilot</span>
@@ -576,7 +691,7 @@
       </div>
 
       <!-- 2. job-finder -->
-      <div class="project-card glass-card rounded-xl p-6 flex flex-col justify-between group" data-category="genai">
+      <div class="project-card glass-card rounded-xl p-6 flex flex-col justify-between group reveal" data-category="genai">
         <div>
           <div class="flex items-center justify-between mb-3">
             <span class="text-xs font-mono text-brand-400 uppercase tracking-wide bg-brand-500/10 px-2.5 py-1 rounded border border-brand-500/20">Agentic AI & Full-Stack</span>
@@ -602,7 +717,7 @@
       </div>
 
       <!-- 3. custom-rag -->
-      <div class="project-card glass-card rounded-xl p-6 flex flex-col justify-between group" data-category="rag">
+      <div class="project-card glass-card rounded-xl p-6 flex flex-col justify-between group reveal reveal-delay-1" data-category="rag">
         <div>
           <div class="flex items-center justify-between mb-3">
             <span class="text-xs font-mono text-brand-400 uppercase tracking-wide bg-brand-500/10 px-2.5 py-1 rounded border border-brand-500/20">Enterprise RAG</span>
@@ -627,7 +742,7 @@
       </div>
 
       <!-- 4. us-visa-slot-checker -->
-      <div class="project-card glass-card rounded-xl p-6 flex flex-col justify-between group" data-category="systems">
+      <div class="project-card glass-card rounded-xl p-6 flex flex-col justify-between group reveal reveal-delay-2" data-category="systems">
         <div>
           <div class="flex items-center justify-between mb-3">
             <span class="text-xs font-mono text-brand-400 uppercase tracking-wide bg-brand-500/10 px-2.5 py-1 rounded border border-brand-500/20">Automation & Systems</span>
@@ -652,7 +767,7 @@
       </div>
 
       <!-- 5. expense-tracker -->
-      <div class="project-card glass-card rounded-xl p-6 flex flex-col justify-between group" data-category="systems">
+      <div class="project-card glass-card rounded-xl p-6 flex flex-col justify-between group reveal reveal-delay-2" data-category="systems">
         <div>
           <div class="flex items-center justify-between mb-3">
             <span class="text-xs font-mono text-brand-400 uppercase tracking-wide bg-brand-500/10 px-2.5 py-1 rounded border border-brand-500/20">Web App</span>
@@ -772,32 +887,66 @@
     </h2>
     <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-6">
       
-      <div class="glass-card rounded-xl p-6">
+      <div class="glass-card rounded-xl p-6 reveal reveal-delay-1">
         <h3 class="text-sm font-bold uppercase tracking-wider mb-4 text-brand-400 flex items-center gap-2">
           <i data-lucide="code-2" class="w-4 h-4"></i> Languages
         </h3>
-        <p class="text-sm text-gray-300 leading-relaxed font-mono">Python, SQL, C++, Java, JavaScript, TypeScript, Bash</p>
+        <div class="flex flex-wrap gap-2">
+          <span class="skill-pill">Python</span>
+          <span class="skill-pill">SQL</span>
+          <span class="skill-pill">C++</span>
+          <span class="skill-pill">Java</span>
+          <span class="skill-pill">JavaScript</span>
+          <span class="skill-pill">TypeScript</span>
+          <span class="skill-pill">Bash</span>
+        </div>
       </div>
 
-      <div class="glass-card rounded-xl p-6">
+      <div class="glass-card rounded-xl p-6 reveal reveal-delay-2">
         <h3 class="text-sm font-bold uppercase tracking-wider mb-4 text-brand-400 flex items-center gap-2">
           <i data-lucide="brain-circuit" class="w-4 h-4"></i> AI / ML & GenAI
         </h3>
-        <p class="text-sm text-gray-300 leading-relaxed font-light">Generative AI, LLMs, Hybrid RAG, Context Engineering, PyTorch, Anomaly Detection, XGBoost, U-Net, DenseNet</p>
+        <div class="flex flex-wrap gap-2">
+          <span class="skill-pill">Generative AI</span>
+          <span class="skill-pill">LLMs</span>
+          <span class="skill-pill">Hybrid RAG</span>
+          <span class="skill-pill">Context Eng.</span>
+          <span class="skill-pill">PyTorch</span>
+          <span class="skill-pill">XGBoost</span>
+          <span class="skill-pill">U-Net</span>
+          <span class="skill-pill">Anomaly Detect.</span>
+        </div>
       </div>
 
-      <div class="glass-card rounded-xl p-6">
+      <div class="glass-card rounded-xl p-6 reveal reveal-delay-3">
         <h3 class="text-sm font-bold uppercase tracking-wider mb-4 text-brand-400 flex items-center gap-2">
           <i data-lucide="database" class="w-4 h-4"></i> Data & Platforms
         </h3>
-        <p class="text-sm text-gray-300 leading-relaxed font-light">PySpark, Azure OpenAI, Cloudera ML, PostgreSQL, Redis, Vector Databases, SAS EG</p>
+        <div class="flex flex-wrap gap-2">
+          <span class="skill-pill">PySpark</span>
+          <span class="skill-pill">Azure OpenAI</span>
+          <span class="skill-pill">Cloudera ML</span>
+          <span class="skill-pill">PostgreSQL</span>
+          <span class="skill-pill">Redis</span>
+          <span class="skill-pill">Vector DBs</span>
+          <span class="skill-pill">SAS EG</span>
+        </div>
       </div>
 
-      <div class="glass-card rounded-xl p-6">
+      <div class="glass-card rounded-xl p-6 reveal reveal-delay-4">
         <h3 class="text-sm font-bold uppercase tracking-wider mb-4 text-brand-400 flex items-center gap-2">
           <i data-lucide="server" class="w-4 h-4"></i> Infra & Systems
         </h3>
-        <p class="text-sm text-gray-300 leading-relaxed font-light">Docker, Rancher, RabbitMQ, Jenkins, Git, AST Parsing, Microservices, CI/CD</p>
+        <div class="flex flex-wrap gap-2">
+          <span class="skill-pill">Docker</span>
+          <span class="skill-pill">Rancher</span>
+          <span class="skill-pill">RabbitMQ</span>
+          <span class="skill-pill">Jenkins</span>
+          <span class="skill-pill">Git</span>
+          <span class="skill-pill">AST Parsing</span>
+          <span class="skill-pill">CI/CD</span>
+          <span class="skill-pill">Microservices</span>
+        </div>
       </div>
 
     </div>
@@ -838,10 +987,34 @@
   </div>
 
   <!-- Footer -->
-  <footer class="border-t border-gray-800/80 py-8 px-4 sm:px-6 text-center text-xs text-gray-500 relative z-10">
-    <div class="max-w-6xl mx-auto flex flex-col sm:flex-row items-center justify-between gap-2">
-      <p>© 2026 Akhil Baja. Designed for high-performance ML engineering.</p>
-      <p class="font-mono text-gray-600">London, UK</p>
+  <footer class="border-t border-gray-800/80 py-10 px-4 sm:px-6 relative z-10">
+    <div class="max-w-6xl mx-auto">
+      <!-- Top row -->
+      <div class="flex flex-col sm:flex-row items-center justify-between gap-6 mb-6">
+        <div class="flex items-center gap-2.5">
+          <div class="flex items-center justify-center w-8 h-8 rounded-lg bg-gray-900 border border-gray-700 text-brand-400">
+            <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+              <polyline points="16 18 22 12 16 6"></polyline>
+              <polyline points="8 6 2 12 8 18"></polyline>
+              <line x1="14" y1="4" x2="10" y2="20"></line>
+            </svg>
+          </div>
+          <span class="font-bold text-white text-sm tracking-tight">Akhil Baja</span>
+          <span class="text-gray-600 text-xs font-mono">· London, UK</span>
+        </div>
+        <!-- Social links -->
+        <div class="flex items-center gap-4 text-xs font-mono text-gray-400">
+          <a href="mailto:akhilbaja.work@gmail.com" class="hover:text-brand-400 transition">Email ↗</a>
+          <a href="https://linkedin.com/in/akhilbaja" target="_blank" rel="noopener noreferrer" class="hover:text-brand-400 transition">LinkedIn ↗</a>
+          <a href="https://github.com/AkhilBaja3005" target="_blank" rel="noopener noreferrer" class="hover:text-brand-400 transition">GitHub ↗</a>
+          <a href="./resume.pdf" target="_blank" rel="noopener noreferrer" class="hover:text-brand-400 transition text-brand-400">Resume ↗</a>
+        </div>
+      </div>
+      <!-- Bottom row -->
+      <div class="border-t border-gray-800/60 pt-5 flex flex-col sm:flex-row items-center justify-between gap-2 text-[11px] text-gray-600 font-mono">
+        <span>© 2026 Akhil Baja. All rights reserved.</span>
+        <span class="flex items-center gap-1.5">Built with <span class="text-brand-400/70">Vanilla JS</span> · <span class="text-brand-400/70">Tailwind CSS</span> · <span class="text-brand-400/70">JetBrains Mono</span></span>
+      </div>
     </div>
   </footer>
 
@@ -1119,6 +1292,69 @@ GitHub:   <a href="https://github.com/AkhilBaja3005" target="_blank" class="text
       if (palEl) palEl.textContent = `⚡ ${ping}ms (Operational)`;
     }
     setInterval(updateTelemetryLatency, 4500);
+
+    // 10. Scroll-Reveal IntersectionObserver
+    (function initReveal() {
+      const revealEls = document.querySelectorAll('.reveal');
+      if (!revealEls.length) return;
+      const observer = new IntersectionObserver((entries) => {
+        entries.forEach(entry => {
+          if (entry.isIntersecting) {
+            entry.target.classList.add('visible');
+            observer.unobserve(entry.target);
+          }
+        });
+      }, { threshold: 0.12 });
+      revealEls.forEach(el => observer.observe(el));
+    })();
+
+    // 11. Active Nav Link Highlighting on Scroll
+    (function initActiveNav() {
+      const sections = document.querySelectorAll('section[id], header[id]');
+      const navLinks = document.querySelectorAll('nav a[href^="#"]');
+      const observer = new IntersectionObserver((entries) => {
+        entries.forEach(entry => {
+          if (entry.isIntersecting) {
+            navLinks.forEach(link => {
+              link.classList.remove('nav-active');
+              if (link.getAttribute('href') === `#${entry.target.id}`) {
+                link.classList.add('nav-active');
+              }
+            });
+          }
+        });
+      }, { rootMargin: '-40% 0px -55% 0px' });
+      sections.forEach(s => observer.observe(s));
+    })();
+
+    // 12. Animated Stat Counters (count up on scroll into view)
+    (function initCounters() {
+      const counters = document.querySelectorAll('.stat-counter');
+      if (!counters.length) return;
+      const observer = new IntersectionObserver((entries) => {
+        entries.forEach(entry => {
+          if (!entry.isIntersecting) return;
+          const el = entry.target;
+          const target = parseFloat(el.dataset.target);
+          const suffix = el.dataset.suffix || '';
+          const prefix = el.dataset.prefix || '';
+          const decimals = el.dataset.decimals ? parseInt(el.dataset.decimals) : 0;
+          const duration = 1400;
+          const start = performance.now();
+          function tick(now) {
+            const elapsed = now - start;
+            const progress = Math.min(elapsed / duration, 1);
+            const eased = 1 - Math.pow(1 - progress, 3); // ease-out cubic
+            const current = target * eased;
+            el.textContent = prefix + current.toFixed(decimals) + suffix;
+            if (progress < 1) requestAnimationFrame(tick);
+          }
+          requestAnimationFrame(tick);
+          observer.unobserve(el);
+        });
+      }, { threshold: 0.5 });
+      counters.forEach(el => observer.observe(el));
+    })();
   </script>
 </body>
 </html>
