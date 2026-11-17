@@ -42,7 +42,6 @@
 | **[notes-taker](https://github.com/AkhilBaja3005/notes-taker)** | Autonomous Lecture Copilot | `Python` `Docker` `PyTorch` | Audio/video transcription, slide OCR extraction, and contextual QA. |
 | **[custom-rag](https://github.com/AkhilBaja3005/custom-rag)** | Enterprise Hybrid RAG Platform | `Python` `Vector DB` `Graph RAG` | Hybrid dense/sparse search with community-graph clustering for 10k–100k+ pages. |
 | **[us-visa-slot-checker](https://github.com/AkhilBaja3005/us-visa-slot-checker)** | Real-Time Monitoring Suite | `JavaScript` `Node.js` | Anti-detect browser automation with multi-channel asynchronous alerting. |
-| **[expense-tracker](https://github.com/AkhilBaja3005/expense-tracker)** | Reactive Financial Dashboard | `React` `Vite` `Tailwind CSS` | Client-side state persistence with real-time categorical expenditure analytics. |
 
 ---
 
