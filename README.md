@@ -37,8 +37,9 @@
 
 | System | Focus Area | Stack | Architecture & Measured Impact |
 | :--- | :--- | :--- | :--- |
+| **[graphite](https://github.com/AkhilBaja3005/graphite)** | EU AI Act & GDPR Compliance Auditor | `Python` `LangGraph` `FastAPI` `SARIF` | Multi-agent audit of code, docs and data pipelines with 4 guardrail gates, SHA-256 evidence hashes, PDF/SARIF reports and a [live dashboard](https://abaja-graphite.hf.space/dashboard/overview). |
+| **[job-finder](https://github.com/AkhilBaja3005/job-finder)** | AI Job Search & ATS Resume Tailor | `FastAPI` `React 19` `LaTeX` `Chrome Ext` | Dual-engine ATS scoring, automated 1-page LaTeX/Tectonic tailoring, and in-browser job extractor. [live demo](https://www.job-finder.space/) |
 | **[notes-taker](https://github.com/AkhilBaja3005/notes-taker)** | Autonomous Lecture Copilot | `Python` `Docker` `PyTorch` | Audio/video transcription, slide OCR extraction, and contextual QA. |
-| **[job-finder](https://github.com/AkhilBaja3005/job-finder)** | AI Job Search & ATS Resume Tailor | `FastAPI` `React 19` `LaTeX` `Chrome Ext` | Dual-engine ATS scoring, automated 1-page LaTeX/Tectonic tailoring, and in-browser job extractor. |
 | **[custom-rag](https://github.com/AkhilBaja3005/custom-rag)** | Enterprise Hybrid RAG Platform | `Python` `Vector DB` `Graph RAG` | Hybrid dense/sparse search with community-graph clustering for 10k–100k+ pages. |
 | **[us-visa-slot-checker](https://github.com/AkhilBaja3005/us-visa-slot-checker)** | Real-Time Monitoring Suite | `JavaScript` `Node.js` | Anti-detect browser automation with multi-channel asynchronous alerting. |
 | **[expense-tracker](https://github.com/AkhilBaja3005/expense-tracker)** | Reactive Financial Dashboard | `React` `Vite` `Tailwind CSS` | Client-side state persistence with real-time categorical expenditure analytics. |
@@ -46,6 +47,19 @@
 ---
 
 ### 🔬 Technical Deep Dives & Systems Architecture
+
+<details open>
+<summary><b>⚖️ Graphite: Multi-Agent EU AI Act & GDPR Compliance Auditor</b></summary>
+<br/>
+
+```
+[Code + Docs + Data] ──► [AST / Doc Extractors] ──► [LangGraph Supervisor → 6 Agents] ──► [4 Guardrail Gates] ──► [PDF + SARIF 2.1.0]
+```
+
+- **Problem**: Proving EU AI Act and GDPR compliance is manual, and LLM-generated findings are often ungrounded or unverifiable.
+- **Solution**: Built a LangGraph supervisor that routes AST and document evidence to 6 specialised agents (PII flow, human oversight, harmful generation, licensing, DPA/provenance, code-vs-doc drift). Four gates enforce citation grounding, tenant isolation, entailment and severity framing.
+- **Impact**: Closed-world design, so missing evidence never counts as a pass. Every finding carries a SHA-256 hash and exact line locator, and failures go to human review instead of being dropped. Ships as a CLI, a FastAPI dashboard on [Hugging Face Spaces](https://abaja-graphite.hf.space/dashboard/overview), and SARIF output for GitHub Code Scanning.
+</details>
 
 <details open>
 <summary><b>📐 AST-Based Cross-Language Context Pipeline (Qualcomm Recognition)</b></summary>
@@ -92,10 +106,10 @@
 
 | Domain | Core Frameworks & Technologies |
 | :--- | :--- |
-| **Generative AI & LLMs** | Large Language Models (LLMs), Context Engineering, Hybrid RAG, Graph Clustering, PyTorch |
+| **Generative AI & LLMs** | Large Language Models (LLMs), Context Engineering, Hybrid RAG, Multi-Agent Systems (LangGraph), Graph Clustering, PyTorch |
 | **Machine Learning & Vision** | Isolation Forests (Anomaly Detection), XGBoost, Naive Bayes, U-Net, DenseNet, Computer Vision |
 | **Distributed Systems & Infra** | AST Parsing, Docker, Rancher, RabbitMQ, Microservices, CI/CD, Static Analysis, Linux Internals |
-| **Languages & Platforms** | Python, C++, Java, JavaScript, TypeScript, SQL, Bash, PostgreSQL, PySpark, Azure OpenAI |
+| **Languages & Platforms** | Python, C++, Java, JavaScript, TypeScript, SQL, Bash, PostgreSQL, MongoDB Atlas, FastAPI, PySpark, Azure OpenAI |
 
 ---
 
